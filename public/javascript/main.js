@@ -19,26 +19,26 @@ for (let i = 0; i < links.length; i++) {
   });
 }
 
-function initMap() {
-  //Catch mission name sent from main.js entry file
-  ipcRenderer.on("create:newMission", (event, mission_name) => {
-    let options = {
-      zoom: 2,
-      center: { lat: 40.4637, lng: 3.7492 }
-    };
+// function initMap() {
+//   //Catch mission name sent from main.js entry file
+//   ipcRenderer.on("create:newMission", (event, mission_name) => {
+//     let options = {
+//       zoom: 2,
+//       center: { lat: 40.4637, lng: 3.7492 }
+//     };
 
-    let map = new google.maps.Map(results, options);
-    let marker = new google.maps.Marker({
-      position: { lat: 40.4637, lng: 3.7492 },
-      map: map
-    });
+//     let map = new google.maps.Map(results, options);
+//     let marker = new google.maps.Marker({
+//       position: { lat: 40.4637, lng: 3.7492 },
+//       map: map
+//     });
 
-    marker.addListener("click", () => {
-      let contentString = "<h1> Lynn MA</h1>";
-      let infowindow = new google.maps.infoWindow({
-        content: contentString
-      });
-      infowindow.open(map, marker);
-    });
-  });
-}
+//     marker.addListener("click", () => {
+//       let contentString = "<h1> Lynn MA</h1>";
+//       let infowindow = new google.maps.infoWindow({
+//         content: contentString
+//       });
+//       infowindow.open(map, marker);
+//     });
+//   });
+// }
