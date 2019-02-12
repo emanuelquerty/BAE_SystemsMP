@@ -1,0 +1,29 @@
+/* #map { display: block; top:0; bottom:0; width:100%; height: 100%; } */
+body { margin:0; padding:0; }
+#map { top:0; bottom:0; width:100%; height: 100%; }
+
+#restricted,
+#nofly,
+#target {
+    z-index: 1005;
+    position: absolute;
+    right: 10px;
+    color: white;
+}
+
+#target {
+    top: 10px;
+    background-color: green;
+}
+
+
+#nofly {
+    top: 35px;
+    background-color: red;
+}
+
+#restricted {
+    top: 60px;
+    background-color: orange;
+}
+
