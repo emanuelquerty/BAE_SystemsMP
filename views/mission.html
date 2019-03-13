@@ -10,8 +10,9 @@
 </head>
 
 <body>
-  <h1 style="display:none;">OSM Bright</h1>
-
+  <button id="generatePath" onclick="getPoints()">Generate Path</button>
+  <button id="showSolution" onclick="showSolution()">Show Solution</button>
+  <input id="solution" type="textbox"></input>
   <!-- <a href="#" class="target inputType"><i class="target inputType material-icons">add_location</i>Target</a>
   <a href="#" class="nofly inputType"><i class="nofly inputType material-icons">add_location</i>No-Fly</a>
   <a href="#" class="restricted inputType"><i class="restricted inputType material-icons">add_location</i>Restricted</a> -->
@@ -42,6 +43,8 @@
       </div>
     </div>
   </div>
+
+  
 
   <!-- <link rel="stylesheet" type="text/css" href="../public/css/mapbox-gl.css">
   <link rel="stylesheet" type="text/css" href="../public/css/mapbox-gl-draw.css">

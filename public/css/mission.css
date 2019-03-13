@@ -1,6 +1,6 @@
 /* #map { display: block; top:0; bottom:0; width:100%; height: 100%; } */
 body { margin:0; padding:0; }
-#map { top:0; bottom:0; width:100%; height: 100%; }
+#map { top:20; bottom:20; width:100%; height: 90%; }
 
 #restricted,
 #nofly,
