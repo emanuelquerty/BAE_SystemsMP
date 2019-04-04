@@ -14,6 +14,21 @@ for (let i = 0; i < links.length; i++) {
         results.innerHTML = res;
         console.log(class_name)
         //ipcRenderer.send(`load:${class_name}`);
+        switch(class_name){
+          case "live-video": {
+            live_video_wrapper();
+            break;
+          }
+          case "recents": {
+            recents_wrapper();
+            break;
+          }
+          default: {
+            console.log("Sidebar error");
+          }
+
+
+        }
 
         
         
@@ -28,8 +43,7 @@ for (let i = 0; i < links.length; i++) {
         // wrapperFunc();
 
         //Call recents wrapper to make content in recent.html available in recents.js
-        //recents_wrapper();
-        live_video_wrapper();
+  
       });
   });
 }
