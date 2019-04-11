@@ -8,7 +8,8 @@ var marker = null;
 var markers = [];
 
 ipcRenderer.on("create:newMission", (event, mission_name) => {
-
+    const drone = require('../controllers/drone');
+    drone.connect();
 
     document.addEventListener("DOMContentLoaded", function(event) { 
         document.getElementById("generatePath").onclick(getPoints);

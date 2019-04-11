@@ -47,7 +47,9 @@ ipcMain.on('create:newMission', (event, mission_name)=>{
     newMission.newMissionWindow.close();
 });
 
-
+ipcMain.on('dronePosition', (event, data) => {
+    mainWindow.webContents.send('dronePosition', data);
+});
 
 // Quit app when the last window is closed
 app.on('window-all-closed', () => {

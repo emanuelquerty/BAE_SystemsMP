@@ -2,3 +2,8 @@
 /src/seniordesign/seniordesign.xcodeproj
 .DS_Store
 2017-07-03_us_arizona.mbtiles
+
+# mavproxy stuff #
+*.parm
+*.tlog
+*.tlog.raw
