@@ -14,7 +14,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
-#include <iostream>
 #include <cstdlib>
 #include <sstream>
 #include <fstream>
@@ -25,7 +24,8 @@
 #include <cstring>
 #include "nlohmann/json.hpp"
 #include <limits>
-#include <iomanip>  
+#include <iomanip>
+#include <sstream>
 
 
 
@@ -58,7 +58,7 @@ public:
     Graph(json initial);
     
     
-    void findSolution();
+    string findSolution();
     void clearOpenList();
     void clearVisitedList();
     void clearPathToGoal();
@@ -74,7 +74,7 @@ public:
     
     void applyMove(int move, State* newState);
     
-    void printSolution(State* goal);
+    string printSolution(State* goal);
     
     bool pointInPolygon(int polyCorners, vector<double> polyX, vector<double> polyY, double x, double y);
     
