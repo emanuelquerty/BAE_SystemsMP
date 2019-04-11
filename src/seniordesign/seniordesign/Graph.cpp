@@ -8,6 +8,7 @@
 
 #include "Graph.h"
 
+#define scale 0.00001
 
 Graph::Graph(char* initial){
     initialState = new State(initial);
@@ -40,7 +41,7 @@ Graph::Graph(json initial){
     }
 }
 
-void Graph::findSolution(){
+string Graph::findSolution(){
     
     State* goal = NULL;
     State* currState = NULL;
@@ -57,7 +58,7 @@ void Graph::findSolution(){
         cout << "Total cost = " << *initialState->g << endl;
         cout << "Number of states expanded = 0" << endl;
         
-        return;
+        return "{}";
     }
     currState = initialState;
     
@@ -68,17 +69,18 @@ void Graph::findSolution(){
         
         goal = createChildren(currState);
         if(goal != NULL){
-            printSolution(goal);
+            return printSolution(goal);
             break;
         }
         else{
             currState = getNextCell();
             if(currState == NULL){
-                cout << "CurrState is NULL" << endl;
+                return "{\"error\": CurrState is NULL}";
             }
         }
         //++i;
     }
+    return "{}";
     
 }
 
@@ -136,7 +138,7 @@ State* Graph::createChildren(State* parent){
             //cout << *newState->h << endl;
             //check if it at goal state
             
-            if(*newState->h < 0.00001){
+            if(*newState->h < scale){
                 states.push_back(newState);
                 return newState;
                 
@@ -203,55 +205,55 @@ bool Graph::moveApplies(int move, State* parent){
             //move North
         case 1:{
             x = parent->coordinates[0];
-            y = parent->coordinates[1] + 0.00001;
+            y = parent->coordinates[1] + scale;
             break;
         }
             //move Northeast
         case 2:{
-            x = parent->coordinates[0] + 0.00001;
-            y = parent->coordinates[1] + 0.00001;
+            x = parent->coordinates[0] + scale;
+            y = parent->coordinates[1] + scale;
             
             break;
         }
             //move East
         case 3:{
-            x = parent->coordinates[0] + 0.00001;
+            x = parent->coordinates[0] + scale;
             y = parent->coordinates[1];
             
             break;
         }
             //move South East
         case 4:{
-            x = parent->coordinates[0] + 0.00001;
-            y = parent->coordinates[1] - 0.00001;
+            x = parent->coordinates[0] + scale;
+            y = parent->coordinates[1] - scale;
             
             break;
         }
             //move South
         case 5:{
             x = parent->coordinates[0];
-            y = parent->coordinates[1] - 0.00001;
+            y = parent->coordinates[1] - scale;
             
             break;
         }
             //move South West
         case 6:{
-            x = parent->coordinates[0] - 0.00001;
-            y = parent->coordinates[1] - 0.00001;
+            x = parent->coordinates[0] - scale;
+            y = parent->coordinates[1] - scale;
             
             break;
         }
             //move West
         case 7:{
-            x = parent->coordinates[0] - 0.00001;
+            x = parent->coordinates[0] - scale;
             y = parent->coordinates[1];
             
             break;
         }
             //move Northwest
         case 8:{
-            x = parent->coordinates[0] - 0.00001;
-            y = parent->coordinates[1] + 0.00001;
+            x = parent->coordinates[0] - scale;
+            y = parent->coordinates[1] + scale;
             
             break;
         }
@@ -271,9 +273,9 @@ bool Graph::moveApplies(int move, State* parent){
     //  float  polyX[]      =  horizontal coordinates of corners
     //  float  polyY[]      =  vertical coordinates of corners
     //  float  x, y         =  point to be tested
-   
+    
     int i, j;
-
+    
     
     for(i = 0; i < this->noFlyZones.size(); ++i){
         vector<double> polyX;
@@ -288,53 +290,53 @@ bool Graph::moveApplies(int move, State* parent){
         }
     }
     return true;
-
     
     
     
     
-//    //traverse through no fly zones points
-//    int i;
-//    int j;
-//    for(i = 0; i < this->noFlyZones.size(); ++i){
-//        for(j = 0; j < this->noFlyZones[i].size() - 1; ++j){
-//            x1 = this->noFlyZones[i][j]->coordinates[0];
-//            x2 = this->noFlyZones[i][j + 1]->coordinates[0];
-//            y1 = this->noFlyZones[i][j]->coordinates[1];
-//            y2 = this->noFlyZones[i][j + 1]->coordinates[1];
-//            slope = (y2-y1)/(x2-x1);
-//
-//
-//            //[-110.92321010925922,32.20951056772604]
-//            //[-110.92321,32.20951
-//            if(abs(x - (-110.92321)) <= 0.00001 && abs(y - 32.20951) <= 0.00001){
-//                cout << "Found point: " << abs(slope * (x - x1) + y1 - y) << endl;
-//            }
-//
-//            //account for negatives
-//            //            if(x <= max(x1, x2) && x >= min(x1,x2) && y <= max(y1,y2) && y >= min(y1,y2)){
-//            if(x <= max(x1, x2) && x >= min(x1,x2) && y <= max(y1,y2) && y >= min(y1,y2)){
-//
-//                //                if(abs(x - (-110.92321)) <= 0.00001 && abs(y - 32.20951) <= 0.00001){
-//                //                    cout << "Found point: " << abs(slope * (x - x1) + y1 - y) << endl;
-//                //                }
-//                // (x,y) is on the line
-//                //cout << abs(slope * (x - x1) + y1 - y) << endl;
-//                //            if (abs(slope * (x - x1) - y) < 0.00001)
-//                //[-110.92320807877464,32.20951241522005]
-//                if (abs(slope * (x - x1) + y1 - y) < 1){
-//                    return false;
-//                }
-//            }
-//
-//
-//
-//        }
-//    }
-//
-//    // (x,y) isn't on the line
-//    return true;
-//
+    
+    //    //traverse through no fly zones points
+    //    int i;
+    //    int j;
+    //    for(i = 0; i < this->noFlyZones.size(); ++i){
+    //        for(j = 0; j < this->noFlyZones[i].size() - 1; ++j){
+    //            x1 = this->noFlyZones[i][j]->coordinates[0];
+    //            x2 = this->noFlyZones[i][j + 1]->coordinates[0];
+    //            y1 = this->noFlyZones[i][j]->coordinates[1];
+    //            y2 = this->noFlyZones[i][j + 1]->coordinates[1];
+    //            slope = (y2-y1)/(x2-x1);
+    //
+    //
+    //            //[-110.92321010925922,32.20951056772604]
+    //            //[-110.92321,32.20951
+    //            if(abs(x - (-110.92321)) <= 0.00001 && abs(y - 32.20951) <= 0.00001){
+    //                cout << "Found point: " << abs(slope * (x - x1) + y1 - y) << endl;
+    //            }
+    //
+    //            //account for negatives
+    //            //            if(x <= max(x1, x2) && x >= min(x1,x2) && y <= max(y1,y2) && y >= min(y1,y2)){
+    //            if(x <= max(x1, x2) && x >= min(x1,x2) && y <= max(y1,y2) && y >= min(y1,y2)){
+    //
+    //                //                if(abs(x - (-110.92321)) <= 0.00001 && abs(y - 32.20951) <= 0.00001){
+    //                //                    cout << "Found point: " << abs(slope * (x - x1) + y1 - y) << endl;
+    //                //                }
+    //                // (x,y) is on the line
+    //                //cout << abs(slope * (x - x1) + y1 - y) << endl;
+    //                //            if (abs(slope * (x - x1) - y) < 0.00001)
+    //                //[-110.92320807877464,32.20951241522005]
+    //                if (abs(slope * (x - x1) + y1 - y) < 1){
+    //                    return false;
+    //                }
+    //            }
+    //
+    //
+    //
+    //        }
+    //    }
+    //
+    //    // (x,y) isn't on the line
+    //    return true;
+    //
     
 }
 
@@ -367,7 +369,7 @@ bool Graph::pointInPolygon(int polyCorners, vector<double> polyX, vector<double>
              ||   (polyY[j]< y && polyY[i]>=y)) &&  (polyX[i]<=x || polyX[j]<=x)) {
             oddNodes^=(polyX[i]+(y-polyY[i])/(polyY[j]-polyY[i])*(polyX[j]-polyX[i])<x); }
         j=i; }
-
+    
     
     return oddNodes;
     
@@ -391,64 +393,64 @@ void Graph::applyMove(int move, State* newState){
             //move North
         case 1:{
             newState->coordinates.push_back((double) newState->parentState->coordinates[0]);
-            newState->coordinates.push_back((double) newState->parentState->coordinates[1] + 0.00001);
-            *newState->g = 0.00001;
+            newState->coordinates.push_back((double) newState->parentState->coordinates[1] + scale);
+            *newState->g = scale;
             
             break;
         }
             //move Northeast
         case 2:{
-            newState->coordinates.push_back((double) newState->parentState->coordinates[0] + 0.00001);
-            newState->coordinates.push_back((double) newState->parentState->coordinates[1] + 0.00001);
-            *newState->g = sqrt(pow(0.00001,2) + pow(0.00001,2));
+            newState->coordinates.push_back((double) newState->parentState->coordinates[0] + scale);
+            newState->coordinates.push_back((double) newState->parentState->coordinates[1] + scale);
+            *newState->g = sqrt(pow(scale,2) + pow(scale,2));
             
             break;
         }
             //move East
         case 3:{
-            newState->coordinates.push_back((double) newState->parentState->coordinates[0] + 0.00001);
+            newState->coordinates.push_back((double) newState->parentState->coordinates[0] + scale);
             newState->coordinates.push_back((double) newState->parentState->coordinates[1]);
-            *newState->g = 0.00001;
+            *newState->g = scale;
             
             break;
         }
             //move South East
         case 4:{
-            newState->coordinates.push_back((double) newState->parentState->coordinates[0] + 0.00001);
-            newState->coordinates.push_back((double) newState->parentState->coordinates[1] - 0.00001);
-            *newState->g = sqrt(pow(0.00001,2) + pow(0.00001,2));
+            newState->coordinates.push_back((double) newState->parentState->coordinates[0] + scale);
+            newState->coordinates.push_back((double) newState->parentState->coordinates[1] - scale);
+            *newState->g = sqrt(pow(scale,2) + pow(scale,2));
             
             break;
         }
             //move South
         case 5:{
             newState->coordinates.push_back((double) newState->parentState->coordinates[0]);
-            newState->coordinates.push_back((double) newState->parentState->coordinates[1] - 0.00001);
-            *newState->g = 0.00001;
+            newState->coordinates.push_back((double) newState->parentState->coordinates[1] - scale);
+            *newState->g = scale;
             
             break;
         }
             //move South West
         case 6:{
-            newState->coordinates.push_back((double) newState->parentState->coordinates[0] - 0.00001);
-            newState->coordinates.push_back((double) newState->parentState->coordinates[1] - 0.00001);
-            *newState->g = sqrt(pow(0.00001,2) + pow(0.00001,2));
+            newState->coordinates.push_back((double) newState->parentState->coordinates[0] - scale);
+            newState->coordinates.push_back((double) newState->parentState->coordinates[1] - scale);
+            *newState->g = sqrt(pow(scale,2) + pow(scale,2));
             
             break;
         }
             //move West
         case 7:{
-            newState->coordinates.push_back((double) newState->parentState->coordinates[0] - 0.00001);
+            newState->coordinates.push_back((double) newState->parentState->coordinates[0] - scale);
             newState->coordinates.push_back((double) newState->parentState->coordinates[1]);
-            *newState->g = 0.00001;
+            *newState->g = scale;
             
             break;
         }
             //move Northwest
         case 8:{
-            newState->coordinates.push_back((double) newState->parentState->coordinates[0] - 0.00001);
-            newState->coordinates.push_back((double) newState->parentState->coordinates[1] + 0.00001);
-            *newState->g = sqrt(pow(0.00001,2) + pow(0.00001,2));
+            newState->coordinates.push_back((double) newState->parentState->coordinates[0] - scale);
+            newState->coordinates.push_back((double) newState->parentState->coordinates[1] + scale);
+            *newState->g = sqrt(pow(scale,2) + pow(scale,2));
             
             break;
         }
@@ -462,32 +464,86 @@ void Graph::applyMove(int move, State* newState){
 }
 
 
-void Graph::printSolution(State* goal){
+string Graph::printSolution(State* goal){
     State* currState = goal;
-    
     while(currState != NULL){
         this->pathToGoal.push_back(currState);
         
         currState = currState->parentState;
         
     }
-    int i = 0;
-    cout << "[" << endl;
     
-    for(i = (int) this->pathToGoal.size()-1; i >= 0; --i){
-        cout << "[" << setprecision(8) << this->pathToGoal.at(i)->coordinates[0] << "," << setprecision(8) << this->pathToGoal.at(i)->coordinates[1] << "]";
-        if( i != 0){
-            cout << "," << endl;
+    stringstream ss;
+    ss << "{\n\"drone1Path\": ";
+    
+    //Drone 1
+    ofstream myfile ("drone1.txt");
+    myfile << "QGC WPL 110" << endl;
+    if (myfile.is_open()){
+        int i = 0;
+        ss << "[";
+        
+        //print way there
+        for(i = (int) this->pathToGoal.size()-1; i >= 0; --i){
+            if(i == (int) this->pathToGoal.size()-1){
+                myfile << (this->pathToGoal.size() - i - 1) << "\t1\t" << "3\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[0] << "\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[1] << "\t" << "60.999999" << endl;
+            }
+            else{
+                myfile << (this->pathToGoal.size() - i - 1) << "\t0\t" << "3\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" <<   setprecision(8) << this->pathToGoal.at(i)->coordinates[0] << "\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[1] << "\t" << "60.999999" << endl;
+            }
+            ss << "[" << setprecision(8) << this->pathToGoal.at(i)->coordinates[0] << "," << setprecision(8) << this->pathToGoal.at(i)->coordinates[1] << "]";
+            
+            if( i != 0){
+                ss << "," << endl;
+            }
+            //        ss << this->pathToGoal.at(i)->coordinates[0] << "," << this->pathToGoal.at(i)->coordinates[1] << " : G(n) = " << *this->pathToGoal.at(i)->g << " : h(n) = " << *this->pathToGoal.at(i)->h << endl;
+        }
+        ss << "]," << endl;
+//        ss << "Total cost = " << *this->pathToGoal.at(0)->g << endl;
+//        ss << "Number of states expanded = " << this->states.size() << endl;
+        
+        for(i = 1; i < (int) this->pathToGoal.size(); ++i){
+            myfile << (this->pathToGoal.size() + i - 1) << "\t0\t" << "3\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" <<   setprecision(8) << this->pathToGoal.at(i)->coordinates[0] << "\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[1] << "\t" << "60.999999" << endl;
         }
         
-        //        cout << this->pathToGoal.at(i)->coordinates[0] << "," << this->pathToGoal.at(i)->coordinates[1] << " : G(n) = " << *this->pathToGoal.at(i)->g << " : h(n) = " << *this->pathToGoal.at(i)->h << endl;
+        myfile.close();
     }
-    cout << "]" << endl;
     
-    cout << "Total cost = " << *this->pathToGoal.at(0)->g << endl;
-    cout << "Number of states expanded = " << this->states.size() << endl;
+    //Drone 2
+    ss << "\"drone2Path\": ";
+    ofstream drone2File ("drone2.txt");
+    drone2File << "QGC WPL 110" << endl;
+    if (drone2File.is_open()){
+        int i = 0;
+        ss << "[";
+        //0    0    0    16    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    1
+        for(i = (int) this->pathToGoal.size()-1; i >= 0; --i){
+            if(i == (int) this->pathToGoal.size()-1){
+                drone2File << (this->pathToGoal.size() - i - 1) << "\t1\t" << "3\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[0] + 0.00003 << "\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[1] + 0.00003 << "\t" << "60.999999" << endl;
+            }
+            else{
+                drone2File << (this->pathToGoal.size() - i - 1) << "\t0\t" << "3\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" <<   setprecision(8) << this->pathToGoal.at(i)->coordinates[0] + 0.00003 << "\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[1] + 0.00003 << "\t" << "60.999999" << endl;
+            }
+            ss << "[" << setprecision(8) << this->pathToGoal.at(i)->coordinates[0] + 0.00003 << "," << setprecision(8) << this->pathToGoal.at(i)->coordinates[1] + 0.00003 << "]";
+            
+            if( i != 0){
+                ss << "," << endl;
+            }
+            //        ss << this->pathToGoal.at(i)->coordinates[0] << "," << this->pathToGoal.at(i)->coordinates[1] << " : G(n) = " << *this->pathToGoal.at(i)->g << " : h(n) = " << *this->pathToGoal.at(i)->h << endl;
+        }
+        ss << "]}" << endl;
+//        ss << "Total cost = " << *this->pathToGoal.at(0)->g << endl;
+//        ss << "Number of states expanded = " << this->states.size() << endl;
+        
+        for(i = 1; i < (int) this->pathToGoal.size(); ++i){
+            drone2File << (this->pathToGoal.size() + i - 1) << "\t0\t" << "3\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" <<   setprecision(8) << this->pathToGoal.at(i)->coordinates[0] + 0.00003 << "\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[1] + 0.00003 << "\t" << "60.999999" << endl;
+            
+        }
+        
+        drone2File.close();
+    }
     
-    
+    return ss.str();
     
 }
 
