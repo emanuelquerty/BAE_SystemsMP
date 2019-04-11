@@ -12,9 +12,9 @@ for (let i = 0; i < links.length; i++) {
       .then(res => res.text())
       .then(res => {
         results.innerHTML = res;
-        console.log(class_name)
+        console.log(class_name);
         //ipcRenderer.send(`load:${class_name}`);
-        switch(class_name){
+        switch (class_name) {
           case "live-video": {
             live_video_wrapper();
             break;
@@ -23,15 +23,15 @@ for (let i = 0; i < links.length; i++) {
             recents_wrapper();
             break;
           }
+          case "all-missions": {
+            all_missions_wrapper();
+            break;
+          }
           default: {
             console.log("Sidebar error");
           }
-
-
         }
 
-        
-        
         //Couldn't think of another way, this is to call the wrapper function in each js
         // var arr = class_name.split('-');
         // var wrapper = '';
@@ -43,7 +43,6 @@ for (let i = 0; i < links.length; i++) {
         // wrapperFunc();
 
         //Call recents wrapper to make content in recent.html available in recents.js
-  
       });
   });
 }
