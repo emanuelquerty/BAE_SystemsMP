@@ -33,5 +33,13 @@ exports.connect = function connectToDrone(comPort = "") {
             // console.log('error parsing JSON');
         }
     }
+
+    if (data.toString().includes('MISSION_ACK')) {
+        console.log(data.toString());
+      }
+    
+      if (data.toString().includes('APM')) {
+        console.log(data.toString());
+      }
   });
 }
