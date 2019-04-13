@@ -254,10 +254,29 @@ function live_video_wrapper() {
       var buf = Buffer.from(data, "base64");
       fs.writeFile("image.png", buf, err => {
         if (err) throw err;
+        openSocetGXP();
         console.log("The file has been saved!");
       });
     } else {
       clearphoto();
     }
   }
+  function openSocetGXP() {
+    let command = '"C:\Program Files\BAE SYSTEMS\SOCET GXP 4.3.0\Exe\StartGxpC.exe" "C:\Program Files\BAE SYSTEMS\SOCET GXP 4.3.0\bin\ImageLoader.exe" C:\Users\UA Student\Documents\BAE_SystemsMP\image.png"'
+
+    exec(command, (err, stdout, stderr) => {
+        if (err) {
+            console.log(err);
+          // node couldn't execute the command
+          return;
+        }
+      
+        // the *entire* stdout and stderr (buffered)
+        console.log(`stdout: ${stdout}`);
+        console.log(`stderr: ${stderr}`);
+      });
+
+
+}
+
 }
