@@ -1,5 +1,6 @@
     var mediaMod = require('rtc-media');
     var $ = require('jquery');
+    const { exec } = require('child_process');
     "use strict";
     
     function live_video_wrapper() {
@@ -183,6 +184,16 @@
                 console.log("enumerateDevices() not supported.");
                 return;
             }
+            // navigator.mediaDevices.enumerateDevices()
+            //     .then(function(devices) {
+            //     devices.forEach(function(device) {
+            //         console.log(device.kind + ": " + device.label +
+            //                     " id = " + device.deviceId);
+            //     });
+            //     })
+            //     .catch(function(err) {
+            //     console.log(err.name + ": " + err.message);
+            //     });
             
             try {
                 const stream = await navigator.mediaDevices.getUserMedia(constraints);
@@ -198,15 +209,15 @@
             //video: ee2bc71fab5e660c081a122160cb91420721401111881ebbd31ab6a6b71ed05f
             //Audio: c8b38ef381cdcd3c353388767b900b40d5b7d2f63c4b4c5c4780013e6832faef
             const constraints = {
-                audio: {
-                    echoCancellation: {exact: hasEchoCancellation},
-                    deviceId: "c8b38ef381cdcd3c353388767b900b40d5b7d2f63c4b4c5c4780013e6832faef"
+                // audio: {
+                //     echoCancellation: {exact: hasEchoCancellation},
+                //     deviceId: "c8b38ef381cdcd3c353388767b900b40d5b7d2f63c4b4c5c4780013e6832faef"
                     
-                },
-                video: {
-                    deviceId: "ee2bc71fab5e660c081a122160cb91420721401111881ebbd31ab6a6b71ed05f",
-                    width: 1280, height: 720
-                }
+                // },
+                // video: {
+                //     deviceId: "ee2bc71fab5e660c081a122160cb91420721401111881ebbd31ab6a6b71ed05f",
+                //     width: 1280, height: 720
+                // }
             };
             console.log('Using media constraints:', constraints);
             await init(constraints);
@@ -245,12 +256,32 @@
                 var buf = Buffer.from(data, 'base64');
                 fs.writeFile('image.png', buf, (err) => {
                     if (err) throw err;
-                    console.log('The file has been saved!')});
+                    console.log('The file has been saved!');
+                    openSocetGXP();
+                });
 
 
             } else {
                 clearphoto();
             }
+        }
+
+        function openSocetGXP() {
+            let command = '"C:\Program Files\BAE SYSTEMS\SOCET GXP 4.3.0\Exe\StartGxpC.exe" "C:\Program Files\BAE SYSTEMS\SOCET GXP 4.3.0\bin\ImageLoader.exe" C:\Users\UA Student\Documents\BAE_SystemsMP\image.png"'
+
+            exec(command, (err, stdout, stderr) => {
+                if (err) {
+                    console.log(err);
+                  // node couldn't execute the command
+                  return;
+                }
+              
+                // the *entire* stdout and stderr (buffered)
+                console.log(`stdout: ${stdout}`);
+                console.log(`stderr: ${stderr}`);
+              });
+
+
         }
         
         
