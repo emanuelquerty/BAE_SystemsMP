@@ -29,44 +29,49 @@
 
 </head> -->
 
+<head>
+
+</head>
+
 <body>
 
-<div id="container">
-    <video id="gum" playsinline autoplay muted></video>
-    <!-- <video id="recorded" playsinline loop></video> -->
+    <div id="container">
+        <video id="gum" playsinline autoplay muted></video>
+        <!-- <video id="recorded" playsinline loop></video> -->
 
-    <div>
-        <button id="start">Start camera</button>
-        <button id="record" disabled>Start Recording</button>
-        <button id="play" disabled>Play</button>
-        <button id="download" disabled>Download</button>
-        <button id="snapshot">Take photo</button>
+        <div>
+            <button id="start">Start camera</button>
+            <button id="record" disabled>Start Recording</button>
+            <button id="play" disabled>Play</button>
+            <button id="download" disabled>Download</button>
+            <button id="snapshot">Take photo</button>
+        </div>
+
+        <div>
+            <h4>Media Stream Constraints options</h4>
+            <p>Echo cancellation: <input type="checkbox" id="echoCancellation"></p>
+        </div>
+
+        <canvas id="canvas">
+        </canvas>
+        <div class="output">
+            <img id="photo" alt="The screen capture will appear in this box.">
+        </div>
+
+        <div>
+            <span id="errorMsg"></span>
+        </div>
+
+        <a href="https://github.com/webrtc/samples/tree/gh-pages/src/content/getusermedia/record"
+            title="View source for this page on GitHub" id="viewSource">View source on GitHub</a>
+
     </div>
 
-    <div>
-        <h4>Media Stream Constraints options</h4>
-        <p>Echo cancellation: <input type="checkbox" id="echoCancellation"></p>
-    </div>
-
-    <canvas id="canvas">
-    </canvas>
-    <div class="output">
-      <img id="photo" alt="The screen capture will appear in this box.">
-    </div>
-
-    <div>
-        <span id="errorMsg"></span>
-    </div>
-
-    <a href="https://github.com/webrtc/samples/tree/gh-pages/src/content/getusermedia/record"
-       title="View source for this page on GitHub" id="viewSource">View source on GitHub</a>
-
-</div>
-
-<!-- include adapter for srcObject shim -->
-<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-<script src="js/main.js" async></script>
-<script src="../../../js/lib/ga.js"></script>
+    <!-- include adapter for srcObject shim -->
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    <script src="js/main.js" async></script>
+    <script src="../../../js/lib/ga.js"></script>
 
 </body>
+
 </html>
