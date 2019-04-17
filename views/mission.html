@@ -10,17 +10,18 @@
 </head>
 
 <body>
-  <button id="generatePath" onclick="getPoints()">Generate Path</button>
-  <button id="showSolution" onclick="showSolution()">Show Solution</button>
-  <input id="solution" type="textbox"></input>
+ 
+
   <!-- <a href="#" class="target inputType"><i class="target inputType material-icons">add_location</i>Target</a>
   <a href="#" class="nofly inputType"><i class="nofly inputType material-icons">add_location</i>No-Fly</a>
   <a href="#" class="restricted inputType"><i class="restricted inputType material-icons">add_location</i>Restricted</a> -->
 
   <div id="map" class="mapboxgl-map">
-    <button id="target" onclick="setZone('target')">Target</button>
+    <button id="currentLocation" onclick="getLocation()">Ground Station</button>
+    <button id="target" onclick="setZone('target')">Area of Interest</button>
     <button id="nofly" onclick="setZone('nofly')">No-Fly</button>
     <button id="restricted" onclick="setZone('restricted')">Restricted</button>
+    <button id="generatePath" onclick="getPoints()">Generate Path</button>
     
 
     <div class="mapboxgl-canvas-container mapboxgl-interactive mapboxgl-touch-drag-pan mapboxgl-touch-zoom-rotate"><canvas

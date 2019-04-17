@@ -5,6 +5,7 @@ var newDrawFeature = false;
 var featureToZoneMap = [];
 var target = false;
 var marker = null;
+var currLocation = null;
 var markers = [];
 
 ipcRenderer.on("create:newMission", (event, mission_name) => {
@@ -13,10 +14,6 @@ ipcRenderer.on("create:newMission", (event, mission_name) => {
 
     document.addEventListener("DOMContentLoaded", function(event) { 
         document.getElementById("generatePath").onclick(getPoints);
-        document.getElementById("showSolution").onclick(showSolution);
-
-
-
     });
 
     fetch("../views/mission.html")
@@ -329,7 +326,9 @@ ipcRenderer.on("create:newMission", (event, mission_name) => {
                     },
 
                 ]
-            })
+            });
+
+
 
             map.addControl(draw, 'top-left');
 
@@ -364,10 +363,25 @@ ipcRenderer.on("create:newMission", (event, mission_name) => {
                 newDrawFeature = false;
 
             });
+
+           
+
         });
 
 
 });
+
+function getLocation(){
+ 
+    // currLocation = new mapboxgl.Marker({
+    //     draggable: true,
+    //     color: '#0000ff'
+    // }).setLngLat([-110.95270926947258,32.28794027939384]).addTo(map);
+
+    
+
+
+}
 
 
 
@@ -409,7 +423,7 @@ var setDrawFeature = function (e) {
 
 var getPoints =  (e) => {
     var obj = {
-        "start": [-110.92260655557135,32.20918097010039],
+        "start": [-110.95240381219547,32.28676901447814],
         "target": [],
         "nofly": [],
         "restricted": []
@@ -418,14 +432,66 @@ var getPoints =  (e) => {
     console.log("marker");
     console.log(marker);
     
-    obj.target = [marker._lngLat.lng, marker._lngLat.lat]
+    obj.target = [marker._lngLat.lng, marker._lngLat.lat];
 
+    let maxLng = Infinity;
+    let minLng = - Infinity;
+    let maxLat = Infinity;
+    let minLat = - Infinity;
+    
+    //expansion so that drones don't approach no flyzones
     arr["features"].forEach((feature) => {
+        feature.geometry.coordinates[0].forEach((coord) => {
+            if(coord[0] > maxLng){
+                maxLng = feature.geometry.coordinates[0][0];
+            }
+            if(coord[0][0] < minLng){
+                minLng = feature.geometry.coordinates[0][0];
+            }
+    
+            if(coord[0][1] > maxLat){
+                maxLat = feature.geometry.coordinates[0][1];
+            }
+    
+            if(coord[0][1] > minLat){
+                minLat = feature.geometry.coordinates[0][1];
+            }});
+
+
+
+        });
+        
+
+        let meanLng = (maxLng + minLng)/2;
+        let meanLat = (maxLat + minLat)/2;
+
+      
+    
+    arr["features"].forEach((feature) => {
+        let currCoords = feature.geometry.coordinates[0];
+        feature.geometry.coordinates[0].forEach((coord) => {
+            
+            console.log("feature")
+            console.log(coord)
+            if(coord[0] < meanLng)
+                coord[0] = parseFloat(coord[0]) - 0.0001;
+            else 
+                coord[0] = parseFloat(coord[0]) + 0.0001;
+
+            if(coord[1] < meanLat)
+                coord[1] = parseFloat(coord[1]) - 0.0001;
+            else 
+                coord[1] = parseFloat(coord[1]) + 0.0001;
+            
+
+        });
+
+        console.log(currCoords)
         if(featureToZoneMap[feature.id] === "nofly" ){
-            obj.nofly.push(feature.geometry.coordinates[0])
+            obj.nofly.push(currCoords)
         }
         else if(featureToZoneMap[feature.id] === "restricted" ){
-            obj.restricted.push(feature.geometry.coordinates[0])
+            obj.restricted.push(currCoords)
         }
         else{
             console.log(featureToZoneMap[feature.id])
@@ -436,168 +502,59 @@ var getPoints =  (e) => {
     });    
     console.log(arr["features"]);
     console.log(featureToZoneMap);
+
+    const fs = require('fs');
+    fs.writeFile("droneInput.json",JSON.stringify(obj), function(err) {
+        if(err) {
+            return console.log(err);
+        }
+        startAStar();
+        console.log("The file was saved!");
+    }); 
     console.log(JSON.stringify(obj));
+    
 
 
 }
 
-var showSolution =  (e) => {
-    let string = `[
-        [-110.92261,32.209181],
-        [-110.9226,32.209191],
-        [-110.92259,32.209201],
-        [-110.92258,32.209211],
-        [-110.92257,32.209221],
-        [-110.92256,32.209231],
-        [-110.92255,32.209241],
-        [-110.92254,32.209251],
-        [-110.92253,32.209261],
-        [-110.92252,32.209271],
-        [-110.92251,32.209281],
-        [-110.9225,32.209291],
-        [-110.92249,32.209301],
-        [-110.92248,32.209311],
-        [-110.92247,32.209321],
-        [-110.92246,32.209331],
-        [-110.92245,32.209341],
-        [-110.92244,32.209351],
-        [-110.92243,32.209361],
-        [-110.92242,32.209371],
-        [-110.92241,32.209381],
-        [-110.9224,32.209391],
-        [-110.92239,32.209401],
-        [-110.92238,32.209411],
-        [-110.92237,32.209421],
-        [-110.92236,32.209431],
-        [-110.92235,32.209441],
-        [-110.92234,32.209451],
-        [-110.92233,32.209461],
-        [-110.92232,32.209471],
-        [-110.92231,32.209481],
-        [-110.9223,32.209491],
-        [-110.92229,32.209501],
-        [-110.92228,32.209511],
-        [-110.92227,32.209521],
-        [-110.92226,32.209531],
-        [-110.92225,32.209541],
-        [-110.92224,32.209551],
-        [-110.92223,32.209561],
-        [-110.92222,32.209571],
-        [-110.92221,32.209581],
-        [-110.9222,32.209591],
-        [-110.92219,32.209591],
-        [-110.92218,32.209591],
-        [-110.92217,32.209591],
-        [-110.92216,32.209591],
-        [-110.92215,32.209591],
-        [-110.92214,32.209601],
-        [-110.92213,32.209601],
-        [-110.92212,32.209601],
-        [-110.92211,32.209601],
-        [-110.9221,32.209601],
-        [-110.92209,32.209601],
-        [-110.92208,32.209601],
-        [-110.92207,32.209601],
-        [-110.92206,32.209601],
-        [-110.92205,32.209601],
-        [-110.92204,32.209611],
-        [-110.92203,32.209611],
-        [-110.92202,32.209611],
-        [-110.92201,32.209611],
-        [-110.922,32.209611],
-        [-110.92199,32.209611],
-        [-110.92198,32.209611],
-        [-110.92197,32.209611],
-        [-110.92196,32.209611],
-        [-110.92195,32.209611],
-        [-110.92194,32.209621],
-        [-110.92193,32.209621],
-        [-110.92192,32.209621],
-        [-110.92191,32.209621],
-        [-110.9219,32.209621],
-        [-110.92189,32.209621],
-        [-110.92188,32.209621],
-        [-110.92187,32.209621],
-        [-110.92186,32.209621],
-        [-110.92185,32.209621],
-        [-110.92184,32.209621],
-        [-110.92183,32.209631],
-        [-110.92182,32.209631],
-        [-110.92181,32.209631],
-        [-110.9218,32.209631],
-        [-110.92179,32.209631],
-        [-110.92178,32.209631],
-        [-110.92177,32.209631],
-        [-110.92176,32.209641],
-        [-110.92175,32.209651],
-        [-110.92174,32.209661],
-        [-110.92174,32.209671],
-        [-110.92173,32.209681],
-        [-110.92172,32.209691],
-        [-110.92171,32.209701],
-        [-110.9217,32.209711],
-        [-110.9217,32.209721],
-        [-110.92169,32.209731],
-        [-110.92168,32.209741],
-        [-110.92167,32.209751],
-        [-110.92166,32.209761],
-        [-110.92166,32.209771],
-        [-110.92166,32.209781],
-        [-110.92166,32.209791],
-        [-110.92166,32.209801],
-        [-110.92166,32.209811],
-        [-110.92166,32.209821],
-        [-110.92166,32.209831],
-        [-110.92166,32.209841],
-        [-110.92166,32.209851],
-        [-110.92166,32.209861],
-        [-110.92165,32.209871],
-        [-110.92165,32.209881],
-        [-110.92165,32.209891],
-        [-110.92165,32.209901],
-        [-110.92165,32.209911],
-        [-110.92165,32.209921],
-        [-110.92165,32.209931],
-        [-110.92165,32.209941],
-        [-110.92165,32.209951],
-        [-110.92166,32.209961],
-        [-110.92167,32.209971],
-        [-110.92168,32.209981],
-        [-110.92169,32.209991],
-        [-110.9217,32.210001],
-        [-110.92171,32.210011],
-        [-110.92172,32.210021],
-        [-110.92173,32.210031],
-        [-110.92174,32.210041],
-        [-110.92175,32.210051],
-        [-110.92176,32.210061],
-        [-110.92177,32.210071],
-        [-110.92178,32.210081],
-        [-110.92179,32.210091],
-        [-110.9218,32.210101],
-        [-110.92181,32.210111],
-        [-110.92182,32.210121],
-        [-110.92183,32.210131],
-        [-110.92184,32.210141],
-        [-110.92185,32.210151],
-        [-110.92186,32.210161],
-        [-110.92187,32.210171],
-        [-110.92188,32.210181],
-        [-110.92189,32.210191],
-        [-110.9219,32.210201],
-        [-110.92191,32.210211],
-        [-110.92192,32.210221],
-        [-110.92193,32.210231],
-        [-110.92194,32.210241],
-        [-110.92195,32.210251],
-        [-110.92196,32.210261],
-        [-110.92197,32.210271],
-        [-110.92198,32.210281],
-        [-110.92199,32.210291],
-        [-110.922,32.210291]]`;
-    var arr = JSON.parse(string);
+var startAStar = () => {
+//"C:\Users\UA Student\Documents\BAE_SystemsMP\src\aStarAlgorithm\x64\Release\aStarAlgorithm.exe" "C:\Users\UA Student\Documents\BAE_SystemsMP\droneInput.json"
+    var executablePath ="C:\\Users\\UA Student\\Documents\\BAE_SystemsMP\\src\\aStarAlgorithm\\x64\\Release\\aStarAlgorithm.exe";
+    var parameters = ["C:\\Users\\UA Student\\Documents\\BAE_SystemsMP\\droneInput.json"];
+
+    
+    child(executablePath, parameters, function(err, data) {
+        console.log("aStarCalled")
+         console.log(err)
+         console.log(data)
+         console.log(data.toString());
+         showSolution(data.toString());
+    });
+
+
+    // let command = '"C:\\Users\\UA Student\\Documents\\BAE_SystemsMP\\src\\aStarAlgorithm\\x64\\Release\\aStarAlgorithm.exe" "C:\\Users\\UA Student\\Documents\\BAE_SystemsMP\\\droneInput.json"'
+
+    // exec(command, (err, stdout, stderr) => {
+    //     if (err) {
+    //         console.log(err);
+    //       // node couldn't execute the command
+    //       return;
+    //     }
+      
+    //     // the *entire* stdout and stderr (buffered)
+    //     showSolution(stdout);
+    //     console.log(`stdout: ${stdout}`);
+    //     console.log(`stderr: ${stderr}`);
+    //   });
+
+}
+
+var showSolution = (json) => {
+
+    var paths = JSON.parse(json);
+
     map.addLayer({
-        "id": "route",
+        "id": "drone1",
         "type": "line",
         "source": {
         "type": "geojson",
@@ -606,7 +563,7 @@ var showSolution =  (e) => {
         "properties": {},
         "geometry": {
         "type": "LineString",
-        "coordinates": arr
+        "coordinates": paths.drone1Path
         }
         }
         },
@@ -615,10 +572,34 @@ var showSolution =  (e) => {
         "line-cap": "round"
         },
         "paint": {
-        "line-color": "#888",
+        "line-color": "#0000FF",
         "line-width": 8
         }
         });
+
+        map.addLayer({
+            "id": "drone2",
+            "type": "line",
+            "source": {
+            "type": "geojson",
+            "data": {
+            "type": "Feature",
+            "properties": {},
+            "geometry": {
+            "type": "LineString",
+            "coordinates": paths.drone2Path
+            }
+            }
+            },
+            "layout": {
+            "line-join": "round",
+            "line-cap": "round"
+            },
+            "paint": {
+            "line-color": "#FF0000",
+            "line-width": 8
+            }
+            });
 
 
     // obj.forEach((coord) => {

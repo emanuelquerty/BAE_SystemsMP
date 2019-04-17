@@ -1,0 +1,13 @@
+﻿  stdafx.cpp
+  aStarAlgorithm.cpp
+  Graph.cpp
+Graph.cpp(208): warning C4101: 'y2': unreferenced local variable
+Graph.cpp(207): warning C4101: 'y1': unreferenced local variable
+Graph.cpp(205): warning C4101: 'x1': unreferenced local variable
+Graph.cpp(204): warning C4101: 'slope': unreferenced local variable
+Graph.cpp(206): warning C4101: 'x2': unreferenced local variable
+  State.cpp
+  Generating code
+  All 1419 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  aStarAlgorithm.vcxproj -> C:\Users\UA Student\Documents\BAE_SystemsMP\src\aStarAlgorithm\x64\Release\aStarAlgorithm.exe
