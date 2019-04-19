@@ -322,6 +322,17 @@ function live_video_wrapper() {
     //   });
 
 
+
+  ipcRenderer.on("dronePosition", (event, data) => {
+    console.log(data);
+    // $("#longitude").innerHTML = 24;
+    // $("#latitude").innerHTML = 24;
+    // $("#elevation").innerHTML = 24;
+  });
+
+  ipcRenderer.on("droneTelemetry", (event, data) => {
+    console.log(data);
+  });
 }
 
 }

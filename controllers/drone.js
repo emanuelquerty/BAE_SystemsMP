@@ -28,18 +28,31 @@ exports.connect = function connectToDrone(comPort = "") {
         try {
             posData = JSON.parse(outString);
             ipcRenderer.send('dronePosition', posData);
-            console.log(main);
         } catch (e) {
             // console.log('error parsing JSON');
         }
     }
 
+    if (data.toString().includes('SYS_STATUS')) {
+        const attIndex = data.toString().indexOf('ATTITUDE');
+        let outString = data.toString().substring(attIndex + 9, attIndex + 200) + '\n';
+        outString = outString.substring(0, outString.lastIndexOf('}') + 1);
+        outString = outString.replace(/([a-z][^:]*)(?=\s*:)/g, '"$1"');
+
+        try {
+          telemData = JSON.parse(outString);
+          ipcRenderer.send('droneTelemetry', telemData);
+        } catch (e) {
+          console.log('error parsing telem JSON');
+        }
+      }
+
     if (data.toString().includes('MISSION_ACK')) {
         console.log(data.toString());
-      }
-    
-      if (data.toString().includes('APM')) {
+    }
+
+    if (data.toString().includes('APM')) {
         console.log(data.toString());
-      }
+    }
   });
 }

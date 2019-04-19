@@ -29,11 +29,45 @@
 
 </head> -->
 
+<head>
+
+</head>
+
 <body>
 
-<div id="container">
-    <video id="gum" playsinline autoplay muted></video>
-    <!-- <video id="recorded" playsinline loop></video> -->
+    <div id="container">
+        <video id="gum" playsinline autoplay muted></video>
+        <!-- <video id="recorded" playsinline loop></video> -->
+
+            <div class="row">
+                <div class="col s4">
+                    <div class="telemData blue-grey darken-1">
+                        <div class="white-text">
+                                <h6>Longitude</h6>
+                                <p id = "longitude"></p>
+                   </div>
+                </div>
+                   
+                </div>
+                <div class="col s4">
+                        <div class="telemData blue-grey darken-1">
+                            <div class="white-text">
+                                    <h6>Latitude</h6>
+                                    <p id = "latitude"></p>
+                       </div>
+                    </div>
+                       
+                    </div>
+                <div class="col s4">
+                        <div class="telemData blue-grey darken-1">
+                            <div class="white-text">
+                                    <h6>Elevation</h6>
+                                    <p id = "elevation"></p>
+                        </div>
+                    </div>
+                        
+                    </div>
+            </div>
 
     <div id="navButtons">
         <button class="btn waves-effect waves-light blue darken-2" type="submit" id="start" name="action">Connect
@@ -67,22 +101,23 @@
         <p>Echo cancellation: <input type="checkbox" id="echoCancellation"></p>
     </div>
 
-    <canvas id="canvas">
-    </canvas>
-    <div class="output">
-      <img id="photo" alt="The screen capture will appear in this box.">
+        <canvas id="canvas">
+        </canvas>
+        <div class="output">
+            <img id="photo" alt="The screen capture will appear in this box.">
+        </div>
+
+        <div>
+            <span id="errorMsg"></span>
+        </div>
+
     </div>
 
-    <div>
-        <span id="errorMsg"></span>
-    </div>
-
-</div>
-
-<!-- include adapter for srcObject shim -->
-<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-<script src="js/main.js" async></script>
-<script src="../../../js/lib/ga.js"></script>
+    <!-- include adapter for srcObject shim -->
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    <script src="js/main.js" async></script>
+    <script src="../../../js/lib/ga.js"></script>
 
 </body>
+
 </html>

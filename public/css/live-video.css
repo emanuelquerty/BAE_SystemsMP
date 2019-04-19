@@ -42,4 +42,10 @@
   #navButtons{
     text-align: center;
   }
+  .telemData {
+    height: 35px;
+    border-radius: 3px;
+    margin: 2px;
+    padding: 4px;
+  }
   
