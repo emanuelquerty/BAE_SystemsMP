@@ -16,7 +16,7 @@ function live_video_wrapper() {
   //snapshot globals
 
   var streaming = false;
-  var width = "320"; // We will scale the photo width to this
+  var width = "720"; // We will scale the photo width to this
   var height = 0; // This will be computed based on the input stream
   var canvas = (canvas = document.getElementById("canvas"));
   var snapshotButton = document.getElementById("snapshot");
@@ -26,16 +26,22 @@ function live_video_wrapper() {
   const errorMsgElement = document.querySelector("span#errorMsg");
   const recordedVideo = document.querySelector("video#recorded");
   const recordButton = document.querySelector("button#record");
+  const stopButton = document.querySelector("button#stop");
   recordButton.addEventListener("click", () => {
-    if (recordButton.textContent === "Start Recording") {
       startRecording();
-    } else {
-      stopRecording();
-      recordButton.textContent = "Start Recording";
-      playButton.disabled = false;
-      downloadButton.disabled = false;
-    }
+      recordButton.style.display = "none";
+      stopButton.style.display = "inline-block";
+
   });
+
+  stopButton.addEventListener("click", () => {
+    stopRecording();
+    download();
+    stopButton.style.display = "none";
+      recordButton.style.display = "inline-block";
+
+  });
+
 
   const playButton = document.querySelector("button#play");
   playButton.addEventListener("click", () => {
@@ -47,26 +53,26 @@ function live_video_wrapper() {
     recordedVideo.play();
   });
 
-  const downloadButton = document.querySelector("button#download");
-  downloadButton.addEventListener("click", () => {
-    fs = require("fs");
-    sys = require("util");
-    const blob = new Blob(recordedBlobs, { type: "video/webm" });
+  // const downloadButton = document.querySelector("button#download");
+  // downloadButton.addEventListener(download);
+    // fs = require("fs");
+    // sys = require("util");
+    // const blob = new Blob(recordedBlobs, { type: "video/webm" });
 
-    var reader = new FileReader();
-    reader.onload = function() {
-      var buffer = new Buffer.from(reader.result);
-      fs.writeFile("video.webm", buffer, {}, (err, res) => {
-        if (err) {
-          console.error(err);
-          return;
-        }
-        console.log("video saved");
-      });
-    };
-    reader.readAsArrayBuffer(blob);
+    // var reader = new FileReader();
+    // reader.onload = function() {
+    //   var buffer = new Buffer.from(reader.result);
+    //   fs.writeFile("video.webm", buffer, {}, (err, res) => {
+    //     if (err) {
+    //       console.error(err);
+    //       return;
+    //     }
+    //     console.log("video saved");
+    //   });
+    // };
+    // reader.readAsArrayBuffer(blob);
 
-    //const url = window.URL.createObjectURL(blob);
+    // //const url = window.URL.createObjectURL(blob);
     // // strip off the data: url prefix to get just the base64-encoded bytes
     // var data = url.replace(/^data:video\/\w+;base64,/, "");
     // var buf = Buffer.from(data, 'base64');
@@ -84,7 +90,27 @@ function live_video_wrapper() {
     //     document.body.removeChild(a);
     //     window.URL.revokeObjectURL(url);
     // }, 100);
-  });
+  function download(){
+    
+    fs = require("fs");
+    sys = require("util");
+    const blob = new Blob(recordedBlobs, { type: "video/webm" });
+
+    var reader = new FileReader();
+    reader.onload = function() {
+      var buffer = new Buffer.from(reader.result);
+      fs.writeFile("video.webm", buffer, {}, (err, res) => {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        console.log("video saved");
+      });
+    };
+    reader.readAsArrayBuffer(blob);
+
+
+  }
 
   snapshotButton.addEventListener(
     "click",
@@ -145,9 +171,7 @@ function live_video_wrapper() {
       "with options",
       options
     );
-    recordButton.textContent = "Stop Recording";
-    playButton.disabled = true;
-    downloadButton.disabled = true;
+
     mediaRecorder.onstop = event => {
       console.log("Recorder stopped: ", event);
     };
@@ -158,11 +182,13 @@ function live_video_wrapper() {
 
   function stopRecording() {
     mediaRecorder.stop();
+    //download();
     console.log("Recorded Blobs: ", recordedBlobs);
   }
 
   function handleSuccess(stream) {
     recordButton.disabled = false;
+    snapshotButton.disabled = false;
     console.log("getUserMedia() got stream:", stream);
     window.stream = stream;
 
@@ -268,7 +294,11 @@ function live_video_wrapper() {
       console.log("Open socet called");
     
     var executablePath ="C:\\Program Files\\BAE SYSTEMS\\SOCET GXP 4.3.0\\Exe\\StartGxpC.exe";
-    var parameters = ["C:\\Program Files\\BAE SYSTEMS\\SOCET GXP 4.3.0\\bin\\ImageLoader.exe", "C:\\Users\\UA Student\\Documents\\BAE_SystemsMP\\image.png"];
+    var parameters = ["C:\\Program Files\\BAE SYSTEMS\\SOCET GXP 4.3.0\\bin\\ImageLoader.exe", 
+    "C:\\Users\\UA Student\\Documents\\BAE_SystemsMP\\image.png",
+    "C:\\Users\\UA Student\\UAV Rescue Mission Template.tmpl",
+    "C:\\Users\\UA Student\\Documents\\BAE_SystemsMP\\socet.jpg"
+  ];
     
     child(executablePath, parameters, function(err, data) {
          console.log(err)

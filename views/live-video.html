@@ -35,16 +35,35 @@
     <video id="gum" playsinline autoplay muted></video>
     <!-- <video id="recorded" playsinline loop></video> -->
 
-    <div>
-        <button id="start">Start camera</button>
+    <div id="navButtons">
+        <button class="btn waves-effect waves-light blue darken-2" type="submit" id="start" name="action">Connect
+                <i class="material-icons right">camera_alt</i>
+                </button>
+        <button class="btn waves-effect waves-light green" type="submit" id="record" name="action" disabled>Start
+                <i class="material-icons right">videocam</i>
+                </button>
+        <button class="btn waves-effect waves-light green" type="submit" id="stop" name="action" >Stop
+                <i class="material-icons right">videocam</i>
+                </button>
+        <button class="btn waves-effect waves-light" type="submit" id="download" name="action" disabled>Download
+                <i class="material-icons right">camera_alt</i>
+                </button> 
+        <button class="btn waves-effect waves-light red darken-1" type="submit" id="snapshot" name="action" disabled>Report
+                <i class="material-icons right">file_download</i>
+                </button>      
+        <button class="btn waves-effect waves-light" type="submit" id="play" name="action">Play
+                <i class="material-icons right">camera_alt</i>
+                </button>       
+                    
+                
+        <!-- <button id="start">Start camera</button>
         <button id="record" disabled>Start Recording</button>
         <button id="play" disabled>Play</button>
         <button id="download" disabled>Download</button>
-        <button id="snapshot">Take photo</button>
+        <button id="snapshot">Take photo</button> -->
     </div>
 
     <div>
-        <h4>Media Stream Constraints options</h4>
         <p>Echo cancellation: <input type="checkbox" id="echoCancellation"></p>
     </div>
 
@@ -57,9 +76,6 @@
     <div>
         <span id="errorMsg"></span>
     </div>
-
-    <a href="https://github.com/webrtc/samples/tree/gh-pages/src/content/getusermedia/record"
-       title="View source for this page on GitHub" id="viewSource">View source on GitHub</a>
 
 </div>
 
