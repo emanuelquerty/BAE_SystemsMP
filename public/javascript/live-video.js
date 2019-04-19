@@ -260,4 +260,12 @@ function live_video_wrapper() {
       clearphoto();
     }
   }
+
+  ipcRenderer.on("dronePosition", (event, data) => {
+    console.log(data);
+  });
+
+  ipcRenderer.on("droneTelemetry", (event, data) => {
+    console.log(data);
+  });
 }

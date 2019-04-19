@@ -52,6 +52,10 @@ ipcMain.on("dronePosition", (event, data) => {
   mainWindow.webContents.send("dronePosition", data);
 });
 
+ipcMain.on("droneTelemetry", (event, data) => {
+  mainWindow.webContents.send("droneTelemetry", data);
+});
+
 // Quit app when the last window is closed
 app.on("window-all-closed", () => {
   app.quit();
