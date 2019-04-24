@@ -27,6 +27,14 @@ function live_video_wrapper() {
   const recordedVideo = document.querySelector("video#recorded");
   const recordButton = document.querySelector("button#record");
   const stopButton = document.querySelector("button#stop");
+  const metadataButton = document.querySelector("button#metadata");
+
+  metadataButton.addEventListener("click", () => {
+
+    metadata();
+  });
+
+
   recordButton.addEventListener("click", () => {
       startRecording();
       recordButton.style.display = "none";
@@ -320,7 +328,15 @@ function live_video_wrapper() {
     //     console.log(`stdout: ${stdout}`);
     //     console.log(`stderr: ${stderr}`);
     //   });
+  }
+  // function metadata(){
+  //   var dataset = gdal.open("C:\\Users\\UA Student\\Desktop\\Stereo_Top_Left_po_104901_pan_0000010000.ntf");
 
+  //   dataset.layers.get(0).features.forEach(function(feature) {
+  //       console.log(feature.getGeometry().toJSON());
+  //   });
+
+  // }
 
 
   ipcRenderer.on("dronePosition", (event, data) => {
@@ -333,6 +349,6 @@ function live_video_wrapper() {
   ipcRenderer.on("droneTelemetry", (event, data) => {
     console.log(data);
   });
-}
+
 
 }

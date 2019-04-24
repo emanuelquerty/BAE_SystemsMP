@@ -52,6 +52,12 @@ ipcRenderer.on("create:newMission", (event, mission_name) => {
             center: [-110.826, 32.239]
         });
         map.addControl(new mapboxgl.NavigationControl(), 'top-left');
+
+
+        map.on('mousemove', function (e) {
+            document.getElementById('info').innerHTML = "Lng: " + e.lngLat["lng"] + ", " + "Lat: " + e.lngLat["lat"];
+        });
+
         
         // add draw
         draw = new MapboxDraw({
@@ -558,16 +564,16 @@ var getPoints =  (e) => {
                 // console.log("feature")
                 // console.log(coord)
                 if(coord[0] < meanLng)
-                    coord[0] = parseFloat(coord[0]) - 0.0005;
+                    coord[0] = parseFloat(coord[0]);
                 
                 else 
-                    coord[0] = parseFloat(coord[0]) + 0.0005;
+                    coord[0] = parseFloat(coord[0]);
                 
                 if(coord[1] < meanLat)
-                    coord[1] = parseFloat(coord[1]) - 0.0005;
+                    coord[1] = parseFloat(coord[1]);
                 
                 else 
-                    coord[1] = parseFloat(coord[1]) + 0.0005;
+                    coord[1] = parseFloat(coord[1]);
                 
                 
             });
