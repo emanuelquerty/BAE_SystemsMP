@@ -299,19 +299,35 @@ function live_video_wrapper() {
     }
   }
   function openSocetGXP() {
+    var telemData = {
+      "longitude": -110.44212,
+      "latitude": -52.34212,
+      "altitude": 60
+    }
+
+    const fs = require('fs');
+    fs.writeFile("telemetry.json",JSON.stringify(telemData), function(err) {
+        if(err) {
+            return console.log(err);
+        }
+        var executablePath ="C:\\Program Files\\BAE SYSTEMS\\SOCET GXP 4.3.0\\Exe\\StartGxpC.exe";
+        var parameters = ["C:\\Program Files\\BAE SYSTEMS\\SOCET GXP 4.3.0\\bin\\ImageLoader.exe", 
+        "C:\\Users\\UA Student\\Documents\\BAE_SystemsMP\\image.png",
+        "C:\\Users\\UA Student\\UAV Rescue Mission Template.tmpl",
+        "C:\\Users\\UA Student\\Documents\\BAE_SystemsMP\\socet.jpg",
+        "C:\\Users\\UA Student\\Documents\\BAE_SystemsMP\\telemetry.json"
+      ];
+        
+        child(executablePath, parameters, function(err, data) {
+             console.log(err)
+             console.log(data.toString());
+        });
+        console.log("The file was saved!");
+    }); 
+
       console.log("Open socet called");
     
-    var executablePath ="C:\\Program Files\\BAE SYSTEMS\\SOCET GXP 4.3.0\\Exe\\StartGxpC.exe";
-    var parameters = ["C:\\Program Files\\BAE SYSTEMS\\SOCET GXP 4.3.0\\bin\\ImageLoader.exe", 
-    "C:\\Users\\UA Student\\Documents\\BAE_SystemsMP\\image.png",
-    "C:\\Users\\UA Student\\UAV Rescue Mission Template.tmpl",
-    "C:\\Users\\UA Student\\Documents\\BAE_SystemsMP\\socet.jpg"
-  ];
-    
-    child(executablePath, parameters, function(err, data) {
-         console.log(err)
-         console.log(data.toString());
-    });
+ 
 
 
 
