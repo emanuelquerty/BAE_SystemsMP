@@ -688,4 +688,14 @@ var getPoints =  (e) => {
         
         
     }
+
+    var startDrone1 = (e) => {
+        console.log("Starting drone 1")
+
+
+    }
+    var startDrone2 = (e) => {
+        console.log("Starting drone 2")
+
+    }
     
