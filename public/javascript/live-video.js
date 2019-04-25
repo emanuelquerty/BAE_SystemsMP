@@ -356,9 +356,9 @@ function live_video_wrapper() {
 
 
   ipcRenderer.on("dronePosition1", (event, data) => {
-    document.getElementById("longitude").innerHTML = data['lon '];
-    document.getElementById("latitude").innerHTML = data['lat '];
-    document.getElementById("elevation").innerHTML = data['alt '];
+    document.getElementById("longitude1").innerHTML = data['lon '];
+    document.getElementById("latitude1").innerHTML = data['lat '];
+    document.getElementById("elevation1").innerHTML = data['alt '];
   });
 
   ipcRenderer.on("droneTelemetry1", (event, data) => {
@@ -368,6 +368,9 @@ function live_video_wrapper() {
     // $("#longitude").innerHTML = 24;
     // $("#latitude").innerHTML = 24;
     // $("#elevation").innerHTML = 24;
+    document.getElementById("longitude2").innerHTML = data['lon '];
+    document.getElementById("latitude2").innerHTML = data['lat '];
+    document.getElementById("elevation2").innerHTML = data['alt '];
   });
 
   ipcRenderer.on("droneTelemetry2", (event, data) => {

@@ -32,6 +32,8 @@ exports.connect1 = function connectToDrone1(comPort = "") {
     
         try {
             posData1 = JSON.parse(outString);
+            posData1['lat '] /= 10000000;
+            posData1['lon '] /= 10000000;
             ipcRenderer.send('dronePosition1', posData1);
         } catch (e) {
             // console.log('error parsing JSON');
@@ -82,6 +84,8 @@ exports.connect2 = function connectToDrone2(comPort = "") {
     
         try {
             posData2 = JSON.parse(outString);
+            posData2['lat '] /= 10000000;
+            posData2['lon '] /= 10000000;
             ipcRenderer.send('dronePosition2', posData2);
         } catch (e) {
             // console.log('error parsing JSON');
