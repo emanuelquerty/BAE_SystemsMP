@@ -355,15 +355,25 @@ function live_video_wrapper() {
   // }
 
 
-  ipcRenderer.on("dronePosition", (event, data) => {
-    console.log(data);
+  ipcRenderer.on("dronePosition1", (event, data) => {
+    document.getElementById("longitude1").innerHTML = data['lon '];
+    document.getElementById("latitude1").innerHTML = data['lat '];
+    document.getElementById("elevation1").innerHTML = data['alt '];
+  });
+
+  ipcRenderer.on("droneTelemetry1", (event, data) => {
+  });
+
+  ipcRenderer.on("dronePosition2", (event, data) => {
     // $("#longitude").innerHTML = 24;
     // $("#latitude").innerHTML = 24;
     // $("#elevation").innerHTML = 24;
+    document.getElementById("longitude2").innerHTML = data['lon '];
+    document.getElementById("latitude2").innerHTML = data['lat '];
+    document.getElementById("elevation2").innerHTML = data['alt '];
   });
 
-  ipcRenderer.on("droneTelemetry", (event, data) => {
-    console.log(data);
+  ipcRenderer.on("droneTelemetry2", (event, data) => {
   });
 
 

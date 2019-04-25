@@ -48,12 +48,20 @@ ipcMain.on("create:newMission", (event, mission_name) => {
   newMission.newMissionWindow.close();
 });
 
-ipcMain.on("dronePosition", (event, data) => {
-  mainWindow.webContents.send("dronePosition", data);
+ipcMain.on("dronePosition1", (event, data) => {
+  mainWindow.webContents.send("dronePosition1", data);
 });
 
-ipcMain.on("droneTelemetry", (event, data) => {
-  mainWindow.webContents.send("droneTelemetry", data);
+ipcMain.on("droneTelemetry1", (event, data) => {
+  mainWindow.webContents.send("droneTelemetry1", data);
+});
+
+ipcMain.on("dronePosition2", (event, data) => {
+  mainWindow.webContents.send("dronePosition2", data);
+});
+
+ipcMain.on("droneTelemetry2", (event, data) => {
+  mainWindow.webContents.send("droneTelemetry2", data);
 });
 
 // Quit app when the last window is closed
