@@ -33,7 +33,8 @@ var droneData2 = {
 
 ipcRenderer.on("create:newMission", (event, mission_name) => {
     const drone = require('../controllers/drone');
-    drone.connect();
+    drone.connect1(6);
+    drone.connect2(8);
     
     document.addEventListener("DOMContentLoaded", function(event) { 
         document.getElementById("generatePath").onclick(getPoints);
