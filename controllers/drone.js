@@ -1,4 +1,4 @@
-const { spawn } = require('child_process');
+const { spawn, exec } = require('child_process');
 const { ipcRenderer } = electron;
 // const main = require('../main');
 
@@ -14,7 +14,6 @@ exports.connect1 = function connectToDrone1(comPort = "") {
   if (comPort == "") {
       MAVProxy1 = spawn('mavproxy');
   } else {
-      // MAVProxy1 = spawn('mavproxy', ['--master="'+ comPort +'"']);
       MAVProxy1 = spawn('mavproxy', ['--master=COM' + comPort]);
       console.log(comPort);
   }
@@ -65,7 +64,6 @@ exports.connect1 = function connectToDrone1(comPort = "") {
 }
 
 exports.load1 = function load1(fileName = "") {
-  MAVProxy1.stdin.write('wp list\n');
   if (fileName === "") {
     MAVProxy1.stdin.write('wp load drone1.txt\n');
   } else {
@@ -119,14 +117,13 @@ exports.connect2 = function connectToDrone2(comPort = "") {
         console.log('Drone 2: ' + data.toString());
     }
 
-    if (data.toString().includes('APM')) {
+    if (data.toString().includes('APM: ')) {
         console.log('Drone 2: ' + data.toString());
     }
   });
 }
 
 exports.load2 = function load2(fileName = "") {
-  MAVProxy2.stdin.write('wp list\n');
   if (fileName === "") {
     MAVProxy2.stdin.write('wp load drone2.txt\n');
   } else {

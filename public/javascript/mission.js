@@ -34,7 +34,6 @@ var drone;
 ipcRenderer.on("create:newMission", (event, mission_name) => {
     drone = require('../controllers/drone');
     drone.connect1(4);
-    
     setTimeout(() => {
         drone.connect2(5);
     }, 500);
@@ -675,7 +674,7 @@ var getPoints =  (e) => {
         // console.log(points2);
 
         map.getSource('drone1').setData(droneData1);
-        map.getSource('drone2').setData(droneData2)
+        map.getSource('drone2').setData(droneData2);
         
         
         
@@ -694,16 +693,16 @@ var getPoints =  (e) => {
     }
 
     var startDrone1 = (e) => {
-        console.log("Starting drone 1")
-        drone.load1("drone1.txt")
+        console.log("Starting drone 1");
+        drone.load1("drone1.txt");
         
         
 
 
     }
     var startDrone2 = (e) => {
-        console.log("Starting drone 2")
-        drone.load2("drone2.txt")
+        console.log("Starting drone 2");
+        drone.load2("drone2.txt");
 
     }
     
