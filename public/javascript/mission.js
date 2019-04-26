@@ -30,12 +30,13 @@ var droneData2 = {
     }
 };
 
-
+var drone;
 ipcRenderer.on("create:newMission", (event, mission_name) => {
-    const drone = require('../controllers/drone');
-    drone.connect1(12);
+    drone = require('../controllers/drone');
+    drone.connect1(4);
+    
     setTimeout(() => {
-        drone.connect2(13);
+        drone.connect2(5);
     }, 500);
     
     document.addEventListener("DOMContentLoaded", function(event) { 
@@ -520,7 +521,7 @@ var getPoints =  (e) => {
     obj.start = [startMarker._lngLat.lng, startMarker._lngLat.lat];
     obj.target = [marker._lngLat.lng, marker._lngLat.lat];
     
-    let maxLng = -Number.MAX_VALUE;
+    let maxLng = -Number.MAX_VALUE; 
     let minLng = Number.MAX_VALUE;
     let maxLat = -Number.MAX_VALUE;
     let minLat = Number.MAX_VALUE;
@@ -694,11 +695,15 @@ var getPoints =  (e) => {
 
     var startDrone1 = (e) => {
         console.log("Starting drone 1")
+        drone.load1("drone1.txt")
+        
+        
 
 
     }
     var startDrone2 = (e) => {
         console.log("Starting drone 2")
+        drone.load2("drone2.txt")
 
     }
     

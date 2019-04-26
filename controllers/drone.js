@@ -20,7 +20,7 @@ exports.connect1 = function connectToDrone1(comPort = "") {
   }
 
   setInterval(() => {
-      MAVProxy1.stdin.write('status\n');
+      //MAVProxy1.stdin.write('status\n');
   }, 200);
   
   MAVProxy1.stdout.on('data', (data) => {
@@ -64,6 +64,15 @@ exports.connect1 = function connectToDrone1(comPort = "") {
   });
 }
 
+exports.load1 = function load1(fileName = "") {
+  MAVProxy1.stdin.write('wp list\n');
+  if (fileName === "") {
+    MAVProxy1.stdin.write('wp load drone1.txt\n');
+  } else {
+    MAVProxy1.stdin.write('wp load ' + fileName + '\n');
+  }
+}
+
 exports.connect2 = function connectToDrone2(comPort = "") {
   if (comPort == "") {
       MAVProxy2 = spawn('mavproxy');
@@ -72,7 +81,7 @@ exports.connect2 = function connectToDrone2(comPort = "") {
   }
 
   setInterval(() => {
-      MAVProxy2.stdin.write('status\n');
+      //MAVProxy2.stdin.write('status\n');
   }, 200);
   
   MAVProxy2.stdout.on('data', (data) => {
@@ -114,4 +123,13 @@ exports.connect2 = function connectToDrone2(comPort = "") {
         console.log('Drone 2: ' + data.toString());
     }
   });
+}
+
+exports.load2 = function load2(fileName = "") {
+  MAVProxy2.stdin.write('wp list\n');
+  if (fileName === "") {
+    MAVProxy2.stdin.write('wp load drone2.txt\n');
+  } else {
+    MAVProxy2.stdin.write('wp load ' + fileName + '\n');
+  }
 }
