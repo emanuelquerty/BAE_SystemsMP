@@ -14,25 +14,45 @@
     <link rel="stylesheet" type="text/css" href="../public/css/mapbox-gl-draw.css">
     <link rel="stylesheet" type="text/css" href="../public/css/mission.css">
     <link rel="stylesheet" type="text/css" href="../public/css/live-video.css">
+<<<<<<< Updated upstream
     <link rel="stylesheet" type="text/css" href="../public/css/materialize/css/materialize.min.css">
+=======
+
+    <!-- Jquery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Video.JS CDNS  -->
+    <link href="https://vjs.zencdn.net/7.5.4/video-js.css" rel="stylesheet">
+    <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+    <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+
+>>>>>>> Stashed changes
 </head>
 
 <body>
     <header id="main-header">
-        <input type="search" placeholder="Search Mission">
+        <div id="dark-theme-toggler">
+            <span id="dark-theme-description">Dark Mode</span>
+            <i class="material-icons" id="toggle-dark-mode">
+                toggle_off
+            </i>
+        </div>
+
+        <input type="search" id="search-box" placeholder="Search Mission">
+        <div id="search-box-results"></div>
     </header>
     <main id="grid">
         <div id="left-side-container">
             <p>Favorites</p>
             <a href="#" class="recents link"><i class="recents material-icons">date_range</i> Recents</a>
-            <a href="#" class="all-missions link"><i class="all-missions material-icons">archive</i>Missions</a>
+            <a href="#" class="all-missions link"><i class="all-missions material-icons">archive</i>All Missions</a>
             <a href="#" class="by-date link"><i class="by-date material-icons">filter_list</i> By Date</a>
             <a href="#" class="delete link"><i class="delete material-icons">delete</i> Delete</a>
             <!-- <a href="#" class="all-reports link"><i class="all-reports material-icons">library_books</i> All Reports</a>
             <a href="#" class="all-videos link"><i class="all-videos material-icons">ondemand_video</i> All Videos</a> -->
             <a href="#visited" class="live-video link"><i class="live-video material-icons">ondemand_video</i> Live
                 Video</a>
-
+            <a href="#" class="save-mission link"><i class="save-mission material-icons">save</i> Save Mission</a>
         </div>
         <div id="right-side-container">
             <div id="right-side-container__results">
@@ -48,9 +68,15 @@
     <script src="../public/javascript/mapbox-gl-draw.js"></script>
     <script src="../public/javascript/mission.js"></script>
     <script src="../public/javascript/live-video.js"></script>
+<<<<<<< Updated upstream
     <script src="../public/css/materialize/js/materialize.min.js"></script>
+=======
+    <script src="../public/javascript/save-mission.js"></script>
+    <script src="../public/javascript/change-mode.js"></script>
+    <script src="../public/javascript/search-box-results.js"></script>
+>>>>>>> Stashed changes
 
-
+    <script src='https://vjs.zencdn.net/7.5.4/video.js'></script>
 </body>
 
 </html>

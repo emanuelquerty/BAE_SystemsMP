@@ -1,8 +1,8 @@
 var mediaMod = require("rtc-media");
 var $ = require("jquery");
-const { exec } = require('child_process');
-var child = require('child_process').execFile;
-("use strict"); 
+const { exec } = require("child_process");
+var child = require("child_process").execFile;
+("use strict");
 
 function live_video_wrapper() {
   /* globals MediaRecorder */
@@ -30,26 +30,21 @@ function live_video_wrapper() {
   const metadataButton = document.querySelector("button#metadata");
 
   metadataButton.addEventListener("click", () => {
-
     metadata();
   });
 
-
   recordButton.addEventListener("click", () => {
-      startRecording();
-      recordButton.style.display = "none";
-      stopButton.style.display = "inline-block";
-
+    startRecording();
+    recordButton.style.display = "none";
+    stopButton.style.display = "inline-block";
   });
 
   stopButton.addEventListener("click", () => {
     stopRecording();
     download();
     stopButton.style.display = "none";
-      recordButton.style.display = "inline-block";
-
+    recordButton.style.display = "inline-block";
   });
-
 
   const playButton = document.querySelector("button#play");
   playButton.addEventListener("click", () => {
@@ -63,43 +58,41 @@ function live_video_wrapper() {
 
   // const downloadButton = document.querySelector("button#download");
   // downloadButton.addEventListener(download);
-    // fs = require("fs");
-    // sys = require("util");
-    // const blob = new Blob(recordedBlobs, { type: "video/webm" });
+  // fs = require("fs");
+  // sys = require("util");
+  // const blob = new Blob(recordedBlobs, { type: "video/webm" });
+  // var reader = new FileReader();
+  // reader.onload = function() {
+  //   var buffer = new Buffer.from(reader.result);
+  //   fs.writeFile("video.webm", buffer, {}, (err, res) => {
+  //     if (err) {
+  //       console.error(err);
+  //       return;
+  //     }
+  //     console.log("video saved");
+  //   });
+  // };
+  // reader.readAsArrayBuffer(blob);
 
-    // var reader = new FileReader();
-    // reader.onload = function() {
-    //   var buffer = new Buffer.from(reader.result);
-    //   fs.writeFile("video.webm", buffer, {}, (err, res) => {
-    //     if (err) {
-    //       console.error(err);
-    //       return;
-    //     }
-    //     console.log("video saved");
-    //   });
-    // };
-    // reader.readAsArrayBuffer(blob);
+  // //const url = window.URL.createObjectURL(blob);
+  // // strip off the data: url prefix to get just the base64-encoded bytes
+  // var data = url.replace(/^data:video\/\w+;base64,/, "");
+  // var buf = Buffer.from(data, 'base64');
+  // fs.writeFile('video.webm', buf, (err) => {
+  //     if (err) throw err;
+  //     console.log('The file has been saved!')});
 
-    // //const url = window.URL.createObjectURL(blob);
-    // // strip off the data: url prefix to get just the base64-encoded bytes
-    // var data = url.replace(/^data:video\/\w+;base64,/, "");
-    // var buf = Buffer.from(data, 'base64');
-    // fs.writeFile('video.webm', buf, (err) => {
-    //     if (err) throw err;
-    //     console.log('The file has been saved!')});
-
-    // const a = document.createElement('a');
-    // a.style.display = 'none';
-    // a.href = url;
-    // a.download = 'test.webm';
-    // document.body.appendChild(a);
-    // a.click();
-    // setTimeout(() => {
-    //     document.body.removeChild(a);
-    //     window.URL.revokeObjectURL(url);
-    // }, 100);
-  function download(){
-    
+  // const a = document.createElement('a');
+  // a.style.display = 'none';
+  // a.href = url;
+  // a.download = 'test.webm';
+  // document.body.appendChild(a);
+  // a.click();
+  // setTimeout(() => {
+  //     document.body.removeChild(a);
+  //     window.URL.revokeObjectURL(url);
+  // }, 100);
+  function download() {
     fs = require("fs");
     sys = require("util");
     const blob = new Blob(recordedBlobs, { type: "video/webm" });
@@ -116,8 +109,6 @@ function live_video_wrapper() {
       });
     };
     reader.readAsArrayBuffer(blob);
-
-
   }
 
   snapshotButton.addEventListener(
@@ -292,7 +283,8 @@ function live_video_wrapper() {
         if (err) throw err;
         console.log("The file has been saved!");
         openSocetGXP();
-        
+
+        ipcRenderer.send("photo:saved", "image.png");
       });
     } else {
       clearphoto();
@@ -300,36 +292,34 @@ function live_video_wrapper() {
   }
   function openSocetGXP() {
     var telemData = {
-      "longitude": -110.44212,
-      "latitude": -52.34212,
-      "altitude": 60
-    }
+      longitude: -110.44212,
+      latitude: -52.34212,
+      altitude: 60
+    };
 
-    const fs = require('fs');
-    fs.writeFile("telemetry.json",JSON.stringify(telemData), function(err) {
-        if(err) {
-            return console.log(err);
-        }
-        var executablePath ="C:\\Program Files\\BAE SYSTEMS\\SOCET GXP 4.3.0\\Exe\\StartGxpC.exe";
-        var parameters = ["C:\\Program Files\\BAE SYSTEMS\\SOCET GXP 4.3.0\\bin\\ImageLoader.exe", 
+    const fs = require("fs");
+    fs.writeFile("telemetry.json", JSON.stringify(telemData), function(err) {
+      if (err) {
+        return console.log(err);
+      }
+      var executablePath =
+        "C:\\Program Files\\BAE SYSTEMS\\SOCET GXP 4.3.0\\Exe\\StartGxpC.exe";
+      var parameters = [
+        "C:\\Program Files\\BAE SYSTEMS\\SOCET GXP 4.3.0\\bin\\ImageLoader.exe",
         "C:\\Users\\UA Student\\Documents\\BAE_SystemsMP\\image.png",
         "C:\\Users\\UA Student\\UAV Rescue Mission Template.tmpl",
         "C:\\Users\\UA Student\\Documents\\BAE_SystemsMP\\socet.jpg",
         "C:\\Users\\UA Student\\Documents\\BAE_SystemsMP\\telemetry.json"
       ];
-        
-        child(executablePath, parameters, function(err, data) {
-             console.log(err)
-             console.log(data.toString());
-        });
-        console.log("The file was saved!");
-    }); 
 
-      console.log("Open socet called");
-    
- 
+      child(executablePath, parameters, function(err, data) {
+        console.log(err);
+        console.log(data.toString());
+      });
+      console.log("The file was saved!");
+    });
 
-
+    console.log("Open socet called");
 
     // let command = '"C:\\Program Files\\BAE SYSTEMS\\SOCET GXP 4.3.0\\Exe\\StartGxpC.exe" "C:\\Program Files\\BAE SYSTEMS\\SOCET GXP 4.3.0\\bin\\ImageLoader.exe" C:\\Users\\UA Student\\Documents\\BAE_SystemsMP\\image.png"'
 
@@ -339,7 +329,7 @@ function live_video_wrapper() {
     //       // node couldn't execute the command
     //       return;
     //     }
-      
+
     //     // the *entire* stdout and stderr (buffered)
     //     console.log(`stdout: ${stdout}`);
     //     console.log(`stderr: ${stderr}`);
@@ -354,27 +344,22 @@ function live_video_wrapper() {
 
   // }
 
-
   ipcRenderer.on("dronePosition1", (event, data) => {
-    document.getElementById("longitude1").innerHTML = data['lon '];
-    document.getElementById("latitude1").innerHTML = data['lat '];
-    document.getElementById("elevation1").innerHTML = data['alt '];
+    document.getElementById("longitude1").innerHTML = data["lon "];
+    document.getElementById("latitude1").innerHTML = data["lat "];
+    document.getElementById("elevation1").innerHTML = data["alt "];
   });
 
-  ipcRenderer.on("droneTelemetry1", (event, data) => {
-  });
+  ipcRenderer.on("droneTelemetry1", (event, data) => {});
 
   ipcRenderer.on("dronePosition2", (event, data) => {
     // $("#longitude").innerHTML = 24;
     // $("#latitude").innerHTML = 24;
     // $("#elevation").innerHTML = 24;
-    document.getElementById("longitude2").innerHTML = data['lon '];
-    document.getElementById("latitude2").innerHTML = data['lat '];
-    document.getElementById("elevation2").innerHTML = data['alt '];
+    document.getElementById("longitude2").innerHTML = data["lon "];
+    document.getElementById("latitude2").innerHTML = data["lat "];
+    document.getElementById("elevation2").innerHTML = data["alt "];
   });
 
-  ipcRenderer.on("droneTelemetry2", (event, data) => {
-  });
-
-
+  ipcRenderer.on("droneTelemetry2", (event, data) => {});
 }

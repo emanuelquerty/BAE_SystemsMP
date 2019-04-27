@@ -1,22 +1,38 @@
 #mission-wrapper {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 #mission-video iframe {
-    margin-right: 4rem;
+  margin-bottom: 4rem;
+  display: block;
 }
 
-#mission-wrapper #report {
-    width: 400px;
-    height: 300px;
+#mission-wrapper #report,
+#mission-wrapper #mission-image {
+  width: 400px;
+  height: 300px;
 }
 
 #mission-wrapper p {
-    margin-top: -0.5rem;
-    font-size: 0.9rem;
+  margin-top: -0.5rem;
+  font-size: 0.9rem;
 }
 
 #mission-wrapper #mission-name {
-    margin-top: 2rem;
+  margin-top: 2rem;
+}
+
+.video-js {
+  width: 400px;
+  height: 300px;
+}
+
+.video-wrapper,
+.image-wrapper {
+  margin-bottom: 4rem;
+  padding: 10px;
+  width: 420px;
+  height: 320px;
+  background-color: #bec2c7;
 }
