@@ -12,6 +12,11 @@ function live_video_wrapper() {
   let mediaRecorder;
   let recordedBlobs;
   let sourceBuffer;
+  var telemData = {
+    longitude: -110.44212,
+    latitude: -52.34212,
+    altitude: 60
+  };
 
   //snapshot globals
 
@@ -291,11 +296,7 @@ function live_video_wrapper() {
     }
   }
   function openSocetGXP() {
-    var telemData = {
-      longitude: -110.44212,
-      latitude: -52.34212,
-      altitude: 60
-    };
+   
 
     const fs = require("fs");
     fs.writeFile("telemetry.json", JSON.stringify(telemData), function(err) {
@@ -348,6 +349,10 @@ function live_video_wrapper() {
     document.getElementById("longitude1").innerHTML = data["lon "];
     document.getElementById("latitude1").innerHTML = data["lat "];
     document.getElementById("elevation1").innerHTML = data["alt "];
+    telemData.longitude = data["lon "];
+    telemData.latitude = data["lat "];
+    telemData.altitude = data["alt "];
+
   });
 
   ipcRenderer.on("droneTelemetry1", (event, data) => {});

@@ -35,7 +35,7 @@ ipcRenderer.on("create:newMission", (event, mission_name) => {
     drone = require('../controllers/drone');
     drone.connect1(4);
     setTimeout(() => {
-        drone.connect2(5);
+        drone.connect2(6);
     }, 500);
     
     document.addEventListener("DOMContentLoaded", function(event) { 
@@ -621,6 +621,7 @@ var getPoints =  (e) => {
         child(executablePath, parameters, function(err, data) {
             console.log("aStarCalled")
             console.log(err)
+            console.log(data);
             // console.log(data)
             // console.log(data.toString());
             showSolution(data.toString());
