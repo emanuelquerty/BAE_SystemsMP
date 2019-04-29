@@ -34,7 +34,7 @@ ipcRenderer.on("create:newMission", (event, mission_name) => {
   drone = require("../controllers/drone");
   drone.connect1(4);
   setTimeout(() => {
-    drone.connect2(5);
+    drone.connect2(6);
   }, 500);
 
   document.addEventListener("DOMContentLoaded", function(event) {

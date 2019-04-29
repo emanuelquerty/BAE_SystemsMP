@@ -19,7 +19,7 @@ exports.connect1 = function connectToDrone1(comPort = "") {
   }
 
   setInterval(() => {
-      //MAVProxy1.stdin.write('status\n');
+      MAVProxy1.stdin.write('status\n');
   }, 200);
   
   MAVProxy1.stdout.on('data', (data) => {
@@ -54,21 +54,27 @@ exports.connect1 = function connectToDrone1(comPort = "") {
       }
 
     if (data.toString().includes('MISSION_ACK')) {
-        console.log('Drone 1: ' + data.toString());
+        //console.log('Drone 1: ' + data.toString());
     }
 
-    if (data.toString().includes('APM')) {
+    if (data.toString().includes('APM: ')) {
         console.log('Drone 1: ' + data.toString());
     }
   });
 }
 
 exports.load1 = function load1(fileName = "") {
-  if (fileName === "") {
-    MAVProxy1.stdin.write('wp load drone1.txt\n');
-  } else {
-    MAVProxy1.stdin.write('wp load ' + fileName + '\n');
-  }
+  MAVProxy1.stdin.write('wp clear\n');
+  setTimeout(() => {
+    MAVProxy1.stdin.write('wp list\n');
+  }, 500);
+  setTimeout(() => {
+    if (fileName === "") {
+      MAVProxy1.stdin.write('wp load drone1.txt\n');
+    } else {
+      MAVProxy1.stdin.write('wp load ' + fileName + '\n');
+    }
+  }, 1000);
 }
 
 exports.connect2 = function connectToDrone2(comPort = "") {
@@ -79,7 +85,7 @@ exports.connect2 = function connectToDrone2(comPort = "") {
   }
 
   setInterval(() => {
-      //MAVProxy2.stdin.write('status\n');
+      MAVProxy2.stdin.write('status\n');
   }, 200);
   
   MAVProxy2.stdout.on('data', (data) => {
@@ -114,7 +120,7 @@ exports.connect2 = function connectToDrone2(comPort = "") {
       }
 
     if (data.toString().includes('MISSION_ACK')) {
-        console.log('Drone 2: ' + data.toString());
+        //console.log('Drone 2: ' + data.toString());
     }
 
     if (data.toString().includes('APM: ')) {
@@ -124,9 +130,15 @@ exports.connect2 = function connectToDrone2(comPort = "") {
 }
 
 exports.load2 = function load2(fileName = "") {
-  if (fileName === "") {
-    MAVProxy2.stdin.write('wp load drone2.txt\n');
-  } else {
-    MAVProxy2.stdin.write('wp load ' + fileName + '\n');
-  }
+  MAVProxy2.stdin.write('wp clear\n');
+  setTimeout(() => {
+    MAVProxy2.stdin.write('wp list\n');
+  }, 500);
+  setTimeout(() => {
+    if (fileName === "") {
+      MAVProxy2.stdin.write('wp load drone2.txt\n');
+    } else {
+      MAVProxy2.stdin.write('wp load ' + fileName + '\n');
+    }
+  }, 1000);
 }

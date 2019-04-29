@@ -486,8 +486,13 @@ string Graph::printSolution(State* goal) {
 
 	//Drone 1
 	ofstream myfile("drone1.txt");
-	myfile << "QGC WPL 110" << endl;
+	
 	if (myfile.is_open()) {
+		myfile << "QGC WPL 110" << endl;
+		//0	0	0	16	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	1
+		myfile << "0\t" << "0\t" << "0\t" << "16\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "1" << endl;
+		//1	0	3	22	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	10.000000	1
+		myfile << "1\t" << "0\t" << "3\t" << "22\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "10.000000\t" << "1" << endl;
 		int i = 0;
 		ss << "[";
 
@@ -495,14 +500,14 @@ string Graph::printSolution(State* goal) {
 		for (i = (int)this->pathToGoal.size() - 1; i >= 0; --i) {
 			//beginning
 			if (i == (int)this->pathToGoal.size() - 1) {
-				myfile << (this->pathToGoal.size() - i - 1) << "\t1\t" << "3\t" << "16\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[0] << "\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[1] << "\t" << "60.999999" << "\t1" << endl;
+				myfile << (this->pathToGoal.size() - i + 1) << "\t0\t" << "3\t" << "16\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[1] << "\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[0] << "\t" << "30.00000" << "\t1" << endl;
 			}
 			//target
 			else if (i == 0) {
-				myfile << (this->pathToGoal.size() - i - 1) << "\t1\t" << "3\t" << "16\t" << "20.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[0] << "\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[1] << "\t" << "60.999999" << "\t1" << endl;
+				myfile << (this->pathToGoal.size() - i + 1) << "\t0\t" << "3\t" << "16\t" << "20.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[1] << "\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[0] << "\t" << "30.00000" << "\t1" << endl;
 			}
 			else {
-				myfile << (this->pathToGoal.size() - i - 1) << "\t0\t" << "3\t" << "16\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[0] << "\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[1] << "\t" << "60.999999" << "\t1" << endl;
+				myfile << (this->pathToGoal.size() - i + 1) << "\t0\t" << "3\t" << "16\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[1] << "\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[0] << "\t" << "30.00000" << "\t1" << endl;
 			}
 			ss << "[" << setprecision(8) << this->pathToGoal.at(i)->coordinates[0] << "," << setprecision(8) << this->pathToGoal.at(i)->coordinates[1] << "]";
 
@@ -517,8 +522,9 @@ string Graph::printSolution(State* goal) {
 
 		//print way back
 		for (i = 1; i < (int)this->pathToGoal.size(); ++i) {
-			myfile << (this->pathToGoal.size() + i - 1) << "\t0\t" << "3\t" << "16\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[0] << "\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[1] << "\t" << "60.999999" << "\t1" << endl;
+			myfile << (this->pathToGoal.size() + i + 1) << "\t0\t" << "3\t" << "16\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[1] << "\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[0] << "\t" << "30.00000" << "\t1" << endl;
 		}
+		myfile << (this->pathToGoal.size() + i + 1) << "\t0\t" << "0\t" << "20\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "1" << endl;
 
 		myfile.close();
 	}
@@ -526,20 +532,25 @@ string Graph::printSolution(State* goal) {
 	//Drone 2
 	ss << "\"drone2Path\": ";
 	ofstream drone2File("drone2.txt");
-	drone2File << "QGC WPL 110" << endl;
+	
 	if (drone2File.is_open()) {
+		drone2File << "QGC WPL 110" << endl;
+		//0	0	0	16	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	1
+		drone2File << "0\t" << "0\t" << "0\t" << "16\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "1" << endl;
+		//1	0	3	22	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	10.000000	1
+		drone2File << "1\t" << "0\t" << "3\t" << "22\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "10.000000\t" << "1" << endl;
 		int i = 0;
 		ss << "[";
 		//0    0    0    16    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    1
 		for (i = (int)this->pathToGoal.size() - 1; i >= 0; --i) {
 			if (i == (int)this->pathToGoal.size() - 1) {
-				drone2File << (this->pathToGoal.size() - i - 1) << "\t1\t" << "3\t" <<  "16\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[0] + 0.00003 << "\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[1] + 0.00003 << "\t" << "60.999999" << "\t1" << endl;
+				drone2File << (this->pathToGoal.size() - i + 1) << "\t0\t" << "3\t" <<  "16\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[1] + 0.00003 << "\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[0] + 0.00003 << "\t" << "40.00000" << "\t1" << endl;
 			}
 			else if (i == 0) {
-				drone2File << (this->pathToGoal.size() - i - 1) << "\t0\t" << "3\t" << "16\t" << "20.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[0] + 0.00003 << "\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[1] + 0.00003 << "\t" << "60.999999" << "\t1" << endl;
+				drone2File << (this->pathToGoal.size() - i + 1) << "\t0\t" << "3\t" << "16\t" << "20.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[1] + 0.00003 << "\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[0] + 0.00003 << "\t" << "40.00000" << "\t1" << endl;
 			}
 			else {
-				drone2File << (this->pathToGoal.size() - i - 1) << "\t0\t" << "3\t" <<  "16\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[0] + 0.00003 << "\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[1] + 0.00003 << "\t" << "60.999999" << "\t1" << endl;
+				drone2File << (this->pathToGoal.size() - i + 1) << "\t0\t" << "3\t" <<  "16\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[1] + 0.00003 << "\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[0] + 0.00003 << "\t" << "40.00000" << "\t1" << endl;
 			}
 			ss << "[" << setprecision(8) << this->pathToGoal.at(i)->coordinates[0] + 0.00006 << "," << setprecision(8) << this->pathToGoal.at(i)->coordinates[1] << "]";
 
@@ -553,9 +564,10 @@ string Graph::printSolution(State* goal) {
 		//        ss << "Number of states expanded = " << this->states.size() << endl;
 
 		for (i = 1; i < (int)this->pathToGoal.size(); ++i) {
-			drone2File << (this->pathToGoal.size() + i - 1) << "\t0\t" << "3\t" << "16\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[0] + 0.00003 << "\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[1] + 0.00003 << "\t" << "60.999999" << "\t1" << endl;
+			drone2File << (this->pathToGoal.size() + i + 1) << "\t0\t" << "3\t" << "16\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[1] + 0.00003 << "\t" << setprecision(8) << this->pathToGoal.at(i)->coordinates[0] + 0.00003 << "\t" << "40.00000" << "\t1" << endl;
 
 		}
+		drone2File << (this->pathToGoal.size() + i + 1) << "\t0\t" << "0\t" << "20\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "0.000000\t" << "1" << endl;
 
 		drone2File.close();
 	}
