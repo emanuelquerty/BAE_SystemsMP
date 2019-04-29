@@ -214,12 +214,17 @@ function all_missions_wrapper() {
     };
 
     // Set the path in which the file will be saved
+    // let filePath = "";
+    // if (process.platform == "darwin") {
+    //   const homedir = require("os").homedir();
+    //   console.log(homedir);
+    //   filePath = `${homedir}/Downloads/${filename}`;
+    // }
+
     let filePath = "";
-    if (process.platform == "darwin") {
-      const homedir = require("os").homedir();
-      console.log(homedir);
-      filePath = `${homedir}/Downloads/${filename}`;
-    }
+    const homedir = require("os").homedir();
+    console.log(homedir);
+    filePath = `${homedir}/Downloads/${filename}`;
 
     // const filePath = `./data/${filename}`;
 
