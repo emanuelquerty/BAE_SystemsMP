@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/emanuelquerty/BAE_SystemsMP#readme",
   "dependencies": {
+    "aws-sdk": "^2.444.0",
     "body-parser": "^1.18.3",
     "electron": "^4.0.2",
     "express": "^4.16.4",

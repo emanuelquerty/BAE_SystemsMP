@@ -1,6 +1,5 @@
 #all-missions-wrapper {
-  /* display: flex;
-    flex-wrap: wrap; */
+  display: none;
 }
 
 .mission-container {
@@ -16,7 +15,7 @@
 }
 
 .description p {
-  margin: 0 0 0.2em 0;
+  margin: 0 0 1em 0;
   font-size: 0.85rem;
   color: rgb(95, 95, 95);
 }
@@ -43,7 +42,13 @@
 }
 
 .mission-date {
+  margin-top: 13px;
   margin-right: 1rem;
   display: block;
   width: 16%;
+}
+
+.mission-date,
+.mission-name {
+  margin-top: 13px;
 }

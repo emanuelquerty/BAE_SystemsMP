@@ -3,10 +3,12 @@
 const electron = require("electron");
 const url = require("url");
 const path = require("path");
+const fs = require("fs");
 
 const { app, BrowserWindow, Menu, ipcMain } = electron;
 const mainMenuTemplate = require("./controllers/main-menu");
 const newMission = require("./controllers/new-mission");
+const SaveMissionName = require("./controllers/save-mission");
 
 let mainWindow;
 
@@ -21,13 +23,16 @@ app.on("ready", () => {
     }
   });
 
+  // webContents.loadURL(url, {"extraHeaders" : "pragma: no-cache\n"})
+
   // Load index.html content in mainWindow
   mainWindow.loadURL(
     url.format({
       pathname: path.join(__dirname, "views", "index.html"),
       protocol: "file:",
       slashes: true
-    })
+    }),
+    { extraHeaders: "pragma: no-cache\n" }
   );
 
   mainWindow.on("closed", () => {
@@ -44,8 +49,19 @@ app.on("ready", () => {
 // Catch mission name sent from new-mission.js
 ipcMain.on("create:newMission", (event, mission_name) => {
   mainWindow.webContents.send("create:newMission", mission_name);
-  console.log(mission_name);
+
+  // This saves the mission name at "./data/" as mission_name
+  const Mission = new SaveMissionName();
+  Mission.saveMissionName(mission_name);
+
+  //Close the new mission window
   newMission.newMissionWindow.close();
+});
+
+// Catch Save New Mission sent from save-mission.js
+ipcMain.on("save:mission", (event, data) => {
+  const Mission = new SaveMissionName();
+  Mission.saveMissionData();
 });
 
 ipcMain.on("dronePosition1", (event, data) => {

@@ -17,46 +17,56 @@
 
 <body>
     <div id="mission-wrapper">
-        <!-- <div id="mission-video">
-            <iframe width="400" height="300" src="https://www.youtube.com/embed/fRpNHlrstjI" allowfullscreen></iframe>
-            <iframe width="400" height="300" src="https://www.youtube.com/embed/Ou6xWGHwgM4" allowfullscreen></iframe>
-        </div> -->
-        <div class="video-wrapper">
-            <video id='my-video' class='video-js' controls preload='auto' data-setup='{}'>
-                <source id="video-1-src" src='../public/images/aws-video.webm' type='video/webm'>
-                <p class='vjs-no-js'>
-                    To view this video please enable JavaScript, and consider upgrading to a web browser that
-                    <a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
-                </p>
-            </video>
+        <div class="opener" id="image-opener">
+            <img id="image-opener__mission-image" src="../public/images/aws-image.png" alt="">
+            <p id="image-opener-name"></p>
+        </div>
+        <div class="opener" id="video-opener">
+            <img id="video-opener__mission-video" src='../public/images/video.png' alt="">
+            <p id="video-opener-name"></p>
         </div>
 
-        <!-- <div class="video-wrapper">
-            <video id='my-video1' class='video-js' controls preload='auto' data-setup='{}'>
-                <source id="video-2-src" src='../video.webm' type='video/webm'>
-                <p class='vjs-no-js'>
-                    To view this video please enable JavaScript, and consider upgrading to a web browser that
-                    <a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
-                </p>
-            </video>
-        </div> -->
-
-        <div class="image-wrapper">
-            <img id="mission-image" src="../public/images/aws-image.png" alt="">
+        <div id="close-video-file">
+            <div class="video-wrapper">
+                <video id='mission-video' class='video-js' controls preload='auto' data-setup='{}'>
+                    <source id="video-1-src" src='../public/images/aws-video.webm' type='video/webm'>
+                    <p class='vjs-no-js'>
+                        To view this video please enable JavaScript, and consider upgrading to a web browser that
+                        <a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
+                    </p>
+                </video>
+            </div>
         </div>
 
-        <p id="mission-name"><b>Mission Name:</b> Some Name</p>
-        <p><b>Latitude: </b> 30.9485</p>
-        <p><b>Longitude: </b> -50.9485</p>
+        <div id="close-img-file">
+            <div class="image-wrapper">
+                <img id="mission-image" src="../public/images/aws-image.png" alt="">
+            </div>
+        </div>
+        <div class="telemetry-container">
+            <img class="mission-data telemetry" src="../public/images/mission-data.png" alt="">
+            <p id="telemetry-filename">telemetry.json</p>
+        </div>
+        <div class="droneInput-container">
+            <img class="mission-data droneInput" src="../public/images/mission-data.png" alt="">
+            <p id="droneInput-filename">droneInput.json</p>
+        </div>
+        <div class="drone1-container">
+            <img class="mission-data drone1" src="../public/images/mission-data.png" alt="">
+            <p id="drone1txt-filename">drone1.txt</p>
+        </div>
+        <div class="drone2-container">
+            <img class="mission-data drone2" src="../public/images/mission-data.png" alt="">
+            <p id="drone2txt-filename">drone2.txt</p>
+        </div>
 
-        <br>
-        <p>Generated Report:</p>
-        <div class="image-wrapper">
-            <img id="report" src="../public/images/report.jpeg" alt="">
+        <div id="file-downloaded-message">
+            <h6>Finished downloading file</h6>
         </div>
 
     </div>
 
+    <script src="../public/javascript/mission-data.js"></script>
     <script src='https://vjs.zencdn.net/7.5.4/video.js'></script>
 </body>
 

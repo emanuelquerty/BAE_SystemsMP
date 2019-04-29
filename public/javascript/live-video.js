@@ -100,7 +100,7 @@ function live_video_wrapper() {
     var reader = new FileReader();
     reader.onload = function() {
       var buffer = new Buffer.from(reader.result);
-      fs.writeFile("video.webm", buffer, {}, (err, res) => {
+      fs.writeFile("./data/video.webm", buffer, {}, (err, res) => {
         if (err) {
           console.error(err);
           return;
@@ -279,7 +279,7 @@ function live_video_wrapper() {
       // strip off the data: url prefix to get just the base64-encoded bytes
       var data = img.replace(/^data:image\/\w+;base64,/, "");
       var buf = Buffer.from(data, "base64");
-      fs.writeFile("image.png", buf, err => {
+      fs.writeFile("./data/image.png", buf, err => {
         if (err) throw err;
         console.log("The file has been saved!");
         openSocetGXP();
@@ -298,7 +298,9 @@ function live_video_wrapper() {
     };
 
     const fs = require("fs");
-    fs.writeFile("telemetry.json", JSON.stringify(telemData), function(err) {
+    fs.writeFile("./data/telemetry.json", JSON.stringify(telemData), function(
+      err
+    ) {
       if (err) {
         return console.log(err);
       }
@@ -306,10 +308,10 @@ function live_video_wrapper() {
         "C:\\Program Files\\BAE SYSTEMS\\SOCET GXP 4.3.0\\Exe\\StartGxpC.exe";
       var parameters = [
         "C:\\Program Files\\BAE SYSTEMS\\SOCET GXP 4.3.0\\bin\\ImageLoader.exe",
-        "C:\\Users\\UA Student\\Documents\\BAE_SystemsMP\\image.png",
+        "C:\\Users\\UA Student\\Documents\\BAE_SystemsMP\\data\\image.png",
         "C:\\Users\\UA Student\\UAV Rescue Mission Template.tmpl",
         "C:\\Users\\UA Student\\Documents\\BAE_SystemsMP\\socet.jpg",
-        "C:\\Users\\UA Student\\Documents\\BAE_SystemsMP\\telemetry.json"
+        "C:\\Users\\UA Student\\Documents\\BAE_SystemsMP\\data\\telemetry.json"
       ];
 
       child(executablePath, parameters, function(err, data) {

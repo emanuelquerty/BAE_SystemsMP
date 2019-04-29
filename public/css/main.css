@@ -16,7 +16,6 @@ body {
   border-bottom: 1px solid #b7bdc5;
   position: fixed;
   z-index: 2;
-  /* background-color: #363838; */
 }
 
 #main-header #dark-theme-description {
@@ -33,6 +32,8 @@ body {
   border-radius: 4px;
   font-size: 0.8rem;
   padding-left: 1rem;
+  background-color: #fff;
+  box-sizing: border-box;
 }
 
 #main-header #search-box-results {
@@ -77,15 +78,15 @@ body {
   height: 100%;
   background: #d0d5da;
   color: #fff;
-  font-size: 0.8rem;
-  padding-top: 3rem;
+  font-size: 0.85rem;
+  padding-top: 3.5rem;
 }
 
 #left-side-container p {
   color: rgb(85, 84, 84);
   margin-bottom: 0.6em;
-  font-size: 0.75rem;
-  padding-left: 8px;
+  font-size: 0.8rem;
+  padding-left: 10px;
 }
 
 #left-side-container a {
@@ -119,4 +120,5 @@ i {
   height: 90%;
   margin: 7% 5% 0% 5%;
   /* background-color: #aac9ac; */
+  position: relative;
 }

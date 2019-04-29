@@ -1,17 +1,13 @@
 #mission-wrapper {
   display: flex;
-  flex-direction: column;
-}
-
-#mission-video iframe {
-  margin-bottom: 4rem;
-  display: block;
+  margin-top: 1em;
 }
 
 #mission-wrapper #report,
-#mission-wrapper #mission-image {
-  width: 400px;
-  height: 300px;
+#mission-wrapper #mission-image,
+#mission-wrapper #mission-video {
+  width: 700px;
+  height: 500px;
 }
 
 #mission-wrapper p {
@@ -23,16 +19,63 @@
   margin-top: 2rem;
 }
 
-.video-js {
-  width: 400px;
-  height: 300px;
-}
-
 .video-wrapper,
 .image-wrapper {
   margin-bottom: 4rem;
-  padding: 10px;
-  width: 420px;
-  height: 320px;
+  padding: 5px;
+  width: 710px;
+  height: 510px;
   background-color: #bec2c7;
+  display: none;
+  margin: 0 auto;
+  margin-top: 15%;
+}
+
+#image-opener,
+#video-opener,
+.telemetry-container {
+  text-align: center;
+  word-break: break-all;
+  width: 110px;
+  margin-bottom: 1em;
+  margin-right: 1rem;
+}
+
+#image-opener-name,
+#video-opener-name,
+#telemetry-filename,
+#droneInput-filename,
+#drone1txt-filename,
+#drone2txt-filename {
+  font-size: 0.75rem;
+  width: 110px;
+}
+
+#image-opener__mission-image,
+#video-opener__mission-video,
+.mission-data {
+  width: 70px;
+  height: 50px;
+  margin-bottom: 1em;
+}
+
+#close-img-file,
+#close-video-file {
+  width: 100%;
+  height: 100%;
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#file-downloaded-message {
+  position: absolute;
+  top: 95%;
+  left: 0;
+  color: #1e824c;
+  display: none;
+  background-color: #bec2c7;
+  padding: 5px 10px 5px 10px;
+  border-radius: 8px;
 }

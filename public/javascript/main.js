@@ -17,13 +17,16 @@ toggle_dark_mode.addEventListener("click", e => {
 
 for (let i = 0; i < links.length; i++) {
   links[i].addEventListener("click", e => {
-    const class_name = e.target.className.split(" ")[0];
+    let class_name = e.target.className.split(" ")[0];
+    // if (class_name == "save-mission") {
+    //   class_name = "all-missions";
+    // }
+
     fetch(`../views/${class_name}.html`)
       .then(res => res.text())
       .then(res => {
         results.innerHTML = res;
         console.log(class_name);
-        //ipcRenderer.send(`load:${class_name}`);
         switch (class_name) {
           case "live-video": {
             live_video_wrapper();
