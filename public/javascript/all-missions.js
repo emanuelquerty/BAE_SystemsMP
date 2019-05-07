@@ -1,6 +1,6 @@
 "use strict";
-const ACCESS_KEY_ID = "PASTE_ACCESS_KEY_ID_HERE";
-const SECRET_ACCESS_KEY = "PASTE_SECRET_ACCESS_KEY";
+const ACCESS_KEY_ID = "AKIAJ4DGSICL5JSFHNTQ";
+const SECRET_ACCESS_KEY = "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";
 
 function all_missions_wrapper() {
   const docfrag = document.createDocumentFragment();
