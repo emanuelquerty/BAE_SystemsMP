@@ -1,5 +1,5 @@
-const ACCESS_KEY_ID = "AKIAJ4DGSICL5JSFHNTQ";
-const SECRET_ACCESS_KEY = "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";
+const ACCESS_KEY_ID = "ACCESS_KEY_ID";
+const SECRET_ACCESS_KEY = "SECRET_ACCESS_KEY ";
 
 const fs = require("fs");
 const path = require("path");
