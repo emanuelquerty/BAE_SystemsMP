@@ -23,14 +23,11 @@ function change_screen_mode(e) {
     dark_theme_description.style.color = "#aaa";
     left_side_container.style.backgroundColor = "#2e3131";
     document.body.style.backgroundColor = "#222";
+    var p_matches = document.querySelectorAll("p");
 
-    // description_name.forEach(function(el) {
-    //   el.style.color = "#ccc";
-    // });
-
-    // description_date.forEach(function(el) {
-    //   el.style.color = "#ccc";
-    // });
+    for (let p of p_matches) {
+      p.style.color = "#888";
+    }
 
     for (let link of links) {
       link.style.color = "#999";
@@ -43,6 +40,11 @@ function change_screen_mode(e) {
     dark_theme_description.style.color = "#222";
     left_side_container.style.backgroundColor = "#d0d5da";
     document.body.style.backgroundColor = "#fff";
+    var p_matches = document.querySelectorAll("p");
+
+    for (let p of p_matches) {
+      p.style.color = "#000";
+    }
 
     for (let link of links) {
       link.style.color = "rgb(68, 68, 68)";

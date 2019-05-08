@@ -16,41 +16,11 @@ const mainMenuTemplate = [
         }
       },
       {
-        label: "Open a mission                    ",
-        accelerator: process.platform == "darwin" ? "Command+O" : "Ctrl+O"
-      },
-      {
-        label: "Save mission                      ",
-        accelerator: process.platform == "darwin" ? "Command+S" : "Ctrl+S"
-      },
-      {
-        label: "Save mission as                   ",
-        accelerator:
-          process.platform == "darwin" ? "Shift+Command+S" : "Shift+Ctrl+S"
-      },
-      {
         label: "Close",
         accelerator: process.platform == "darwin" ? "Command+Q" : "Ctrl+Q",
         click() {
           main.app.quit();
         }
-      }
-    ]
-  },
-  {
-    label: "View",
-    submenu: [
-      {
-        label: "All Missions                      ",
-        accelerator: process.platform == "darwin" ? "Command+A" : "Ctrl+A",
-        click() {
-          main.mainWindow.webContents.send("open:allMissions", "all-missions");
-          //allMissions.allMissionsWindow();
-        }
-      },
-      {
-        label: "Last Mission                      ",
-        accelerator: process.platform == "darwin" ? "Command+L" : "Ctrl+L"
       }
     ]
   },
