@@ -13,9 +13,9 @@ function live_video_wrapper() {
   let recordedBlobs;
   let sourceBuffer;
   var telemData = {
-    longitude: -110.44212,
-    latitude: -52.34212,
-    altitude: 60
+    longitude: 0,
+    latitude: 0,
+    altitude: 0
   };
 
   //snapshot globals
